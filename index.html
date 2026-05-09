@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<script src="https://elfsightcdn.com/platform.js" async></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -576,17 +575,32 @@
   .fr-text { font-size: .75rem; line-height: 1.55; color: #444; margin-bottom: .4rem; }
   .fr-stars { font-size: .85rem; color: #f5a623; letter-spacing: 1px; }
 
+  .fr-google-summary {
+    display: flex; align-items: center; gap: .7rem;
+    padding: .8rem 1rem; background: #f0f4ff;
+    border-bottom: 1px solid #dce4f5; text-decoration: none;
+    transition: background .2s;
+  }
+  .fr-google-summary:hover { background: #e3eaff; }
+  .fr-google-info { display: flex; flex-direction: column; flex: 1; }
+  .fr-google-score { font-size: 1.1rem; font-weight: 700; color: #222; line-height: 1; }
+  .fr-google-stars { font-size: .85rem; color: #f5a623; letter-spacing: 1px; line-height: 1.4; }
+  .fr-google-count { font-size: .68rem; color: #555; font-weight: 500; }
+
   .fr-footer {
-    padding: .8rem 1rem;
-    background: #f9f9f9;
+    padding: 0;
     border-top: 1px solid #eee;
-    display: flex; justify-content: space-between; gap: .5rem;
+    display: flex;
   }
   .fr-footer a {
-    font-size: .68rem; font-weight: 600; color: #1a3c6e;
+    flex: 1; padding: .85rem .5rem; text-align: center;
+    font-size: .72rem; font-weight: 700; color: #1a3c6e;
     text-decoration: none; letter-spacing: .04em;
+    border-right: 1px solid #eee; background: #f9f9f9;
+    transition: background .2s;
   }
-  .fr-footer a:hover { text-decoration: underline; }
+  .fr-footer a:last-child { border-right: none; }
+  .fr-footer a:hover { background: #e8eef8; text-decoration: none; color: #0a1f4a; }
 
   @media (max-width: 600px) {
     .floating-reviews { display: none; }
@@ -1098,7 +1112,15 @@
   </div>
   <div class="fr-body" id="frBody">
 
-    <div class="elfsight-app-6897ef87-52c9-4aaa-bbb1-75e79a2587f5" data-elfsight-app-lazy></div>
+    <a class="fr-google-summary" href="https://www.google.com/search?q=Desiree+Sanchez+MD+Urology+Simi+Valley+reviews" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="22" height="22"><path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 110-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0012.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z" fill="#4285F4"/></svg>
+      <div class="fr-google-info">
+        <span class="fr-google-score">4.9</span>
+        <span class="fr-google-stars">★★★★★</span>
+        <span class="fr-google-count">76 Google Reviews</span>
+      </div>
+      <svg class="fr-google-arrow" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" xmlns="http://www.w3.org/2000/svg" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
 
     <div class="fr-review">
       <div class="fr-review-top">
