@@ -983,7 +983,14 @@
   }
 
   @media (max-width: 600px) {
-    .hero-video-wrap { border-radius: 12px; }
+    .panel-home { padding-top: 170px; }
+    .hero-video-wrap {
+      border-radius: 12px;
+      flex: 4;
+      height: auto;
+      min-height: 0;
+    }
+    .hero-video { object-fit: cover; mix-blend-mode: normal; }
     .bottom-nav {
       padding: 12px 0 16px;
       justify-content: flex-start;
