@@ -1298,9 +1298,68 @@
       .forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 45 + 80));
   }
 
-  // Navigation is click-only (bottom nav + DS logo).
-  // Wheel and swipe are intentionally disabled so scrollable panels
-  // can be read without accidentally changing pages.
+  // ── SWIPE NAVIGATION ──────────────────────────────────────────────
+  // Direction is locked within the first 10 px of movement.
+  // If the first motion is more vertical than horizontal we surrender
+  // immediately and never call preventDefault(), so native scroll works
+  // normally inside panels like My Why.
+  (function () {
+    const LOCK_PX      = 10;   // pixels before direction is decided
+    const MIN_DIST     = 50;   // minimum horizontal distance for a swipe
+    const MIN_VEL      = 0.3;  // px/ms fast-flick threshold
+    const COOLDOWN     = 500;  // ms between successive swipe actions
+
+    let startX = 0, startY = 0, startT = 0;
+    let direction = null;      // 'h' | 'v' | null (undecided)
+    let active = false;
+    let lastSwipe = 0;
+
+    const track = document.querySelector('.h-track');
+
+    track.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;   // ignore multi-touch / pinch
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+      startT = Date.now();
+      direction = null;
+      active = true;
+    }, { passive: true });
+
+    track.addEventListener('touchmove', function (e) {
+      if (!active || e.touches.length !== 1) return;
+      const t = e.touches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+
+      // Lock direction once we've moved enough pixels to be sure
+      if (direction === null && (Math.abs(dx) > LOCK_PX || Math.abs(dy) > LOCK_PX)) {
+        direction = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
+      }
+
+      // Only block native scroll for confirmed horizontal swipes
+      if (direction === 'h') e.preventDefault();
+    }, { passive: false });
+
+    track.addEventListener('touchend', function (e) {
+      if (!active || direction !== 'h') { active = false; return; }
+      active = false;
+
+      const t = e.changedTouches[0];
+      const dx   = t.clientX - startX;
+      const dt   = Date.now() - startT;
+      const vel  = Math.abs(dx) / dt;
+      const now  = Date.now();
+
+      if ((Math.abs(dx) >= MIN_DIST || vel >= MIN_VEL) && now - lastSwipe >= COOLDOWN) {
+        lastSwipe = now;
+        if (dx < 0) goTo(Math.min(current + 1, panels.length - 1));
+        else         goTo(Math.max(current - 1, 0));
+      }
+    }, { passive: true });
+
+    track.addEventListener('touchcancel', function () { active = false; }, { passive: true });
+  })();
 
   // Nav clicks
   navLinks.forEach(link => {
