@@ -998,7 +998,20 @@
     .reviews-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .cred-list { grid-template-columns: 1fr; }
-    .mywhy-photo-wrap { display: none; }
+    .panel-mywhy { flex-direction: column; }
+    .mywhy-photo-wrap {
+      display: block;
+      width: 100%;
+      height: 42vh;
+      flex-shrink: 0;
+    }
+    .mywhy-photo-wrap::after {
+      background: linear-gradient(to bottom, transparent 40%, #242424 100%);
+    }
+    .mywhy-text {
+      padding: 1.5rem 1.6rem 6rem;
+      overflow-y: auto;
+    }
   }
 
   /* ── REDUCED MOTION ── */
