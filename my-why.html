@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Why — Dr. Desiree Sanchez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #111111;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Home logo */
+  .home-logo {
+    position: fixed;
+    top: 28px; left: 36px;
+    z-index: 100;
+    display: block;
+    text-decoration: none;
+  }
+  .home-logo img {
+    height: 44px;
+    width: auto;
+    opacity: 0.75;
+    transition: opacity 0.25s;
+    display: block;
+  }
+  .home-logo:hover img { opacity: 1; }
+
+  /* Page hero area with photo */
+  .page-hero {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    overflow: hidden;
+  }
+  .page-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .page-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,10,0.3) 0%,
+      rgba(10,10,10,0.5) 60%,
+      rgba(10,10,10,0.95) 100%
+    );
+  }
+  .page-title-wrap {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    text-align: center;
+    padding-bottom: 3rem;
+  }
+  .page-title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 200;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .page-divider {
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 1.5rem auto 0;
+  }
+
+  /* Content */
+  .page-content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 5rem 6vw 10rem;
+  }
+
+  .bio-body {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 1.8rem;
+  }
+
+  .quote-block {
+    margin: 4rem 0;
+    padding: 3rem 3.5rem;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.15);
+    text-align: center;
+  }
+  .quote-block p {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .quote-attr {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    .home-logo { top: 20px; left: 20px; }
+    .home-logo img { height: 36px; }
+    .page-hero { height: 45vh; }
+    .quote-block { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-logo">
+  <img src="DSLogowhite.png" alt="Home">
+</a>
+
+<div class="page-hero">
+  <img src="Desstandingrobot.jpg" alt="Dr. Desiree Sanchez">
+  <div class="page-hero-overlay"></div>
+  <div class="page-title-wrap">
+    <h1 class="page-title">My Why</h1>
+    <div class="page-divider"></div>
+  </div>
+</div>
+
+<div class="page-content">
+  <p class="bio-body reveal">
+    Dr. Desiree Sanchez is a fellowship-trained urologist and robotic urologic oncologist dedicated to the highest standard of surgical care. Her training spans the most rigorous programs in urology, equipping her with advanced skills in robotic and minimally invasive surgery.
+  </p>
+  <p class="bio-body reveal">
+    Dr. Sanchez approaches each patient as a partner — taking time to understand their concerns, explain all options clearly, and build a treatment plan that reflects both the best evidence-based medicine and the patient's individual goals.
+  </p>
+  <p class="bio-body reveal">
+    Her path to medicine was shaped by a deep conviction that patients deserve a physician who listens first and operates with precision — treating the whole person, not just the diagnosis. That belief drives every consultation, every surgery, every follow-up.
+  </p>
+
+  <div class="quote-block reveal">
+    <p>"Every patient deserves a physician who listens first, explains thoroughly, and operates with precision — treating the whole person, not just the diagnosis."</p>
+    <span class="quote-attr">— Dr. Desiree Sanchez</span>
+  </div>
+</div>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

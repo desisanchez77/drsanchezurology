@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training — Dr. Desiree Sanchez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111111;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Home logo */
+  .home-logo {
+    position: fixed;
+    top: 28px; left: 36px;
+    z-index: 100;
+    display: block;
+    text-decoration: none;
+  }
+  .home-logo img {
+    height: 44px;
+    width: auto;
+    opacity: 0.75;
+    transition: opacity 0.25s;
+    display: block;
+  }
+  .home-logo:hover img { opacity: 1; }
+
+  /* Page header */
+  .page-header {
+    padding: 140px 6vw 5rem;
+    text-align: center;
+  }
+  .page-title {
+    font-weight: 200;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .page-divider {
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+    margin: 1.5rem auto 0;
+  }
+
+  /* Content */
+  .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 6vw 10rem;
+  }
+
+  /* Credential items */
+  .cred-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cred-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 2.5rem;
+    padding: 3.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    align-items: start;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .cred-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .cred-item.visible { opacity: 1; transform: translateY(0); }
+
+  .cred-num {
+    font-weight: 200;
+    font-size: 1.8rem;
+    color: rgba(255,255,255,0.15);
+    line-height: 1;
+    padding-top: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .cred-body {}
+
+  .cred-label {
+    font-weight: 300;
+    font-size: 0.58rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.8rem;
+  }
+
+  .cred-name {
+    font-weight: 200;
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    letter-spacing: 0.08em;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .cred-detail {
+    font-weight: 300;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .home-logo { top: 20px; left: 20px; }
+    .home-logo img { height: 36px; }
+    .page-header { padding-top: 110px; }
+    .cred-item { grid-template-columns: 36px 1fr; gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-logo">
+  <img src="DSLogowhite.png" alt="Home">
+</a>
+
+<div class="page-header">
+  <h1 class="page-title">Training</h1>
+  <div class="page-divider"></div>
+</div>
+
+<div class="page-content">
+  <div class="cred-list">
+
+    <div class="cred-item">
+      <span class="cred-num">01</span>
+      <div class="cred-body">
+        <p class="cred-label">Medical Degree</p>
+        <h2 class="cred-name">University of Washington</h2>
+        <p class="cred-detail">School of Medicine · Seattle, WA</p>
+      </div>
+    </div>
+
+    <div class="cred-item">
+      <span class="cred-num">02</span>
+      <div class="cred-body">
+        <p class="cred-label">Residency</p>
+        <h2 class="cred-name">UCLA Urology</h2>
+        <p class="cred-detail">David Geffen School of Medicine · Los Angeles, CA</p>
+      </div>
+    </div>
+
+    <div class="cred-item">
+      <span class="cred-num">03</span>
+      <div class="cred-body">
+        <p class="cred-label">Fellowship</p>
+        <h2 class="cred-name">Robotic Urologic Oncology</h2>
+        <p class="cred-detail">Minimally Invasive Surgery · USC · Los Angeles, CA</p>
+      </div>
+    </div>
+
+    <div class="cred-item">
+      <span class="cred-num">04</span>
+      <div class="cred-body">
+        <p class="cred-label">Certification</p>
+        <h2 class="cred-name">Board Certified</h2>
+        <p class="cred-detail">American Board of Urology</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.cred-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 120);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  items.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

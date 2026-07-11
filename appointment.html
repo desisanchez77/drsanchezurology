@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Appointment — Dr. Desiree Sanchez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111111;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Home logo */
+  .home-logo {
+    position: fixed;
+    top: 28px; left: 36px;
+    z-index: 100;
+    display: block;
+    text-decoration: none;
+  }
+  .home-logo img {
+    height: 44px;
+    width: auto;
+    opacity: 0.75;
+    transition: opacity 0.25s;
+    display: block;
+  }
+  .home-logo:hover img { opacity: 1; }
+
+  /* Page header */
+  .page-header {
+    padding: 140px 6vw 5rem;
+    text-align: center;
+  }
+  .page-title {
+    font-weight: 200;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .page-divider {
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+    margin: 1.5rem auto 0;
+  }
+
+  /* Layout */
+  .page-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 6vw 10rem;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 8vw;
+    align-items: start;
+  }
+
+  /* Contact info */
+  .contact-info { padding-top: 1rem; }
+
+  .contact-block {
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .contact-block.visible { opacity: 1; transform: translateY(0); }
+
+  .contact-label {
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    margin-bottom: 0.5rem;
+  }
+  .contact-val {
+    font-weight: 300;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+  .contact-val a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-val a:hover { color: #fff; }
+
+  /* Form */
+  .form-wrap {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+  }
+  .form-wrap.visible { opacity: 1; transform: translateY(0); }
+
+  .form-group { margin-bottom: 1.8rem; }
+
+  .form-label {
+    display: block;
+    font-size: 0.56rem;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 0.7rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding: 10px 0;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .form-input::placeholder,
+  .form-textarea::placeholder { color: rgba(255,255,255,0.18); }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus { border-bottom-color: rgba(255,255,255,0.5); }
+
+  .form-select { color: rgba(255,255,255,0.4); cursor: pointer; }
+  .form-select option { background: #111; color: #fff; }
+
+  .form-textarea { resize: none; min-height: 80px; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #111111;
+    transition: background 0.25s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: rgba(255,255,255,0.85); }
+
+  @media (max-width: 900px) {
+    .page-content { grid-template-columns: 1fr; gap: 4rem; }
+  }
+  @media (max-width: 600px) {
+    .home-logo { top: 20px; left: 20px; }
+    .home-logo img { height: 36px; }
+    .page-header { padding-top: 110px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-logo">
+  <img src="DSLogowhite.png" alt="Home">
+</a>
+
+<div class="page-header">
+  <h1 class="page-title">Book Appointment</h1>
+  <div class="page-divider"></div>
+</div>
+
+<div class="page-content">
+
+  <div class="contact-info">
+    <div class="contact-block">
+      <p class="contact-label">Phone</p>
+      <p class="contact-val"><a href="tel:+18059558070">(805) 955-8070</a></p>
+    </div>
+    <div class="contact-block">
+      <p class="contact-label">Email</p>
+      <p class="contact-val"><a href="mailto:drsanchezurology@gmail.com">drsanchezurology@gmail.com</a></p>
+    </div>
+    <div class="contact-block">
+      <p class="contact-label">Location</p>
+      <p class="contact-val">2750 Sycamore Dr Suite 202<br>Simi Valley, CA 93065</p>
+    </div>
+    <div class="contact-block">
+      <p class="contact-label">Response Time</p>
+      <p class="contact-val">Within one business day</p>
+    </div>
+  </div>
+
+  <div class="form-wrap">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-input" placeholder="Jane">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-input" placeholder="Smith">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" class="form-input" placeholder="jane@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone Number</label>
+      <input type="tel" class="form-input" placeholder="(000) 000-0000">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Reason for Visit</label>
+      <select class="form-select form-input">
+        <option value="" disabled selected>Select a reason...</option>
+        <option>Prostate Cancer</option>
+        <option>Kidney Cancer</option>
+        <option>Bladder Cancer</option>
+        <option>Other Urologic Cancer</option>
+        <option>Kidney Stones</option>
+        <option>General Urology</option>
+        <option>Second Opinion</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message (Optional)</label>
+      <textarea class="form-textarea form-input" placeholder="Briefly describe your situation or any questions you have..."></textarea>
+    </div>
+    <button type="submit" class="form-submit">Send Appointment Request</button>
+  </div>
+
+</div>
+
+<script>
+  const blocks = document.querySelectorAll('.contact-block');
+  const form = document.querySelector('.form-wrap');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  blocks.forEach(el => obs.observe(el));
+  obs.observe(form);
+</script>
+</body>
+</html>

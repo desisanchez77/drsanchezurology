@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditions I Treat — Dr. Desiree Sanchez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111111;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Home logo */
+  .home-logo {
+    position: fixed;
+    top: 28px; left: 36px;
+    z-index: 100;
+    display: block;
+    text-decoration: none;
+  }
+  .home-logo img {
+    height: 44px;
+    width: auto;
+    opacity: 0.75;
+    transition: opacity 0.25s;
+    display: block;
+  }
+  .home-logo:hover img { opacity: 1; }
+
+  /* Page header */
+  .page-header {
+    padding: 140px 6vw 5rem;
+    text-align: center;
+  }
+  .page-title {
+    font-weight: 200;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .page-divider {
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+    margin: 1.5rem auto 0;
+  }
+
+  /* Content */
+  .page-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 6vw 10rem;
+  }
+
+  /* Grid */
+  .conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .condition-item {
+    background: #111111;
+    padding: 2rem 1.8rem;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease, background 0.2s, color 0.2s;
+  }
+  .condition-item.visible { opacity: 1; transform: translateY(0); }
+
+  .condition-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.5);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.25s;
+  }
+
+  .condition-item:hover { background: #111; color: #fff; }
+  .condition-item:hover::before { transform: scaleY(1); }
+
+  /* Category label */
+  .conditions-section-label {
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    padding: 3rem 0 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .conditions-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .home-logo { top: 20px; left: 20px; }
+    .home-logo img { height: 36px; }
+    .page-header { padding-top: 110px; }
+    .conditions-grid { grid-template-columns: 1fr; }
+    .condition-item { padding: 1.5rem 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-logo">
+  <img src="DSLogowhite.png" alt="Home">
+</a>
+
+<div class="page-header">
+  <h1 class="page-title">Conditions I Treat</h1>
+  <div class="page-divider"></div>
+</div>
+
+<div class="page-content">
+  <div class="conditions-grid">
+    <div class="condition-item">Prostate Cancer</div>
+    <div class="condition-item">Kidney Cancer<br><span style="font-size:0.78rem;color:rgba(255,255,255,0.3);">Renal Cell Carcinoma</span></div>
+    <div class="condition-item">Bladder Cancer</div>
+    <div class="condition-item">Testicular Cancer</div>
+    <div class="condition-item">Adrenal Tumors</div>
+    <div class="condition-item">Upper Tract Urothelial Cancer</div>
+    <div class="condition-item">Penile Cancer</div>
+    <div class="condition-item">Benign Prostatic Hyperplasia<br><span style="font-size:0.78rem;color:rgba(255,255,255,0.3);">BPH</span></div>
+    <div class="condition-item">Kidney Stones<br><span style="font-size:0.78rem;color:rgba(255,255,255,0.3);">Nephrolithiasis</span></div>
+    <div class="condition-item">Urinary Incontinence &amp; Overactive Bladder</div>
+    <div class="condition-item">Hematuria<br><span style="font-size:0.78rem;color:rgba(255,255,255,0.3);">Blood in Urine</span></div>
+    <div class="condition-item">Urethral &amp; Ureteral Strictures</div>
+    <div class="condition-item">Hydronephrosis</div>
+    <div class="condition-item">Erectile Dysfunction</div>
+    <div class="condition-item">Vasectomy</div>
+    <div class="condition-item">Hydrocele</div>
+  </div>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.condition-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 50);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  items.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

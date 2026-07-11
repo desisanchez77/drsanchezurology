@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Dr. Desiree Sanchez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111111;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Home logo */
+  .home-logo {
+    position: fixed;
+    top: 28px; left: 36px;
+    z-index: 100;
+    display: block;
+    text-decoration: none;
+  }
+  .home-logo img {
+    height: 44px;
+    width: auto;
+    opacity: 0.75;
+    transition: opacity 0.25s;
+    display: block;
+  }
+  .home-logo:hover img { opacity: 1; }
+
+  /* Page header */
+  .page-header {
+    padding: 140px 6vw 3rem;
+    text-align: center;
+  }
+  .page-title {
+    font-weight: 200;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .page-divider {
+    width: 36px;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+    margin: 1.5rem auto 0;
+  }
+
+  /* Rating summary */
+  .rating-summary {
+    text-align: center;
+    padding: 2.5rem 6vw 4rem;
+  }
+  .rating-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1;
+    display: block;
+  }
+  .rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 0.8rem 0;
+  }
+  .rating-stars svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.7); }
+  .rating-label {
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* Content */
+  .page-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 6vw 10rem;
+  }
+
+  /* Reviews grid */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 4rem;
+  }
+
+  .review-card {
+    background: #111111;
+    padding: 2.2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease, background 0.2s;
+  }
+  .review-card.visible { opacity: 1; transform: translateY(0); }
+  .review-card:hover { background: #111; }
+
+  .review-stars { display: flex; gap: 3px; }
+  .review-stars svg { width: 12px; height: 12px; fill: rgba(255,255,255,0.65); }
+
+  .review-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.62);
+    flex: 1;
+  }
+  .review-text::before { content: '\201C'; }
+  .review-text::after  { content: '\201D'; }
+
+  .review-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .review-source {
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+  }
+  .review-date {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.2);
+    font-weight: 300;
+  }
+
+  /* Google summary card */
+  .google-card {
+    background: #111 !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.7rem !important;
+    padding: 2.5rem !important;
+  }
+  .google-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1;
+  }
+  .google-count {
+    font-size: 0.68rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.1em;
+  }
+  .google-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 10px 20px;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.55);
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .google-link:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+  /* CTA links */
+  .reviews-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .reviews-cta a {
+    display: inline-block;
+    padding: 12px 26px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.45);
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.25s, color 0.25s;
+  }
+  .reviews-cta a:hover { border-color: rgba(255,255,255,0.45); color: #fff; }
+
+  @media (max-width: 900px) {
+    .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .home-logo { top: 20px; left: 20px; }
+    .home-logo img { height: 36px; }
+    .page-header { padding-top: 110px; }
+    .reviews-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-logo">
+  <img src="DSLogowhite.png" alt="Home">
+</a>
+
+<div class="page-header">
+  <h1 class="page-title">Reviews</h1>
+  <div class="page-divider"></div>
+</div>
+
+<div class="rating-summary">
+  <span class="rating-num">4.9</span>
+  <div class="rating-stars">
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  </div>
+  <p class="rating-label">Based on 325 verified patient ratings</p>
+</div>
+
+<div class="page-content">
+  <div class="reviews-grid">
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">Dr. Sanchez literally saved my life. Her demeanor, listening skills, clarity, confidence and empathy are beyond words.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Jan 2026</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">Thorough, empathetic, and inspiring confidence in treatments. I always leave feeling like I'm in the best possible hands.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Oct 2025</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">Knowledgeable, caring, with excellent bedside manner. She takes the time to explain everything clearly and makes you feel at ease.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Aug 2025</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">Very good communication. Pleasant. I felt genuinely heard and cared for throughout my entire visit.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Feb 2026</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">Dr. Sanchez is excellent in every way. Knowledgeable, professional and friendly.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Feb 2026</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">I saw Dr. Sanchez and would wholeheartedly recommend her to family and friends.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Feb 2026</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">She prescribed a medication that is really helping me. I am so grateful for her care and expertise.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Feb 2026</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">I recommend Dr. Sanchez for anybody with these issues. She is compassionate and truly listens.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Mar 2026</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <p class="review-text">Dr. Sanchez has been wonderful, every time I have come in.</p>
+      <div class="review-footer"><span class="review-source">Adventist Health · Verified</span><span class="review-date">Mar 2026</span></div>
+    </div>
+
+    <!-- Google summary card -->
+    <div class="review-card google-card">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+        <path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 110-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0012.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z" fill="#4285F4"/>
+      </svg>
+      <div class="google-score">4.9</div>
+      <div class="rating-stars" style="justify-content:center;margin:0.3rem 0;">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.65)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.65)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.65)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.65)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.65)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="google-count">76 Google Reviews</p>
+      <a class="google-link" href="https://www.google.com/search?q=Desiree+Sanchez+MD+Urology+Simi+Valley+reviews" target="_blank" rel="noopener">Read All Reviews →</a>
+    </div>
+
+  </div>
+
+  <div class="reviews-cta">
+    <a href="https://www.google.com/search?q=Desiree+Sanchez+MD+Urology+Simi+Valley+reviews" target="_blank" rel="noopener">All Google Reviews</a>
+    <a href="https://doctors.adventisthealth.org/provider/desiree-sanchez/3095153" target="_blank" rel="noopener">All Adventist Health Reviews</a>
+  </div>
+</div>
+
+<script>
+  const cards = document.querySelectorAll('.review-card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  cards.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
