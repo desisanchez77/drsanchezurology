@@ -984,8 +984,10 @@
 
   @media (max-width: 600px) {
     .ds-logo { margin-left: 0; }
-    .name-img { margin-left: 0; width: 62vw; height: auto; object-fit: contain; }
-    .panel-home { padding-top: 270px; }
+    .name-img { margin-left: 0; width: 62vw; height: 38px; object-fit: cover; object-position: center 50%; }
+    .identity-wrap.monogram-only .name-img,
+    .identity-wrap.monogram-only .identity-sub { height: 0 !important; margin: 0 !important; overflow: hidden; }
+    .panel-home { padding-top: 185px; }
     .hero-video-wrap {
       border-radius: 12px;
       flex: 4;
