@@ -872,7 +872,7 @@
   .cancer-access-note {
     font-family: 'Exo 2', sans-serif;
     font-weight: 300;
-    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    font-size: clamp(1.040rem, 1.386vw, 1.213rem);
     color: rgba(201,169,110,0.9);
     letter-spacing: 0.08em;
     margin-top: 1.2rem;
@@ -886,17 +886,24 @@
   }
 
   .appt-content {
-    max-width: 1100px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 0.5rem 6vw 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 8vw;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-shrink: 0;
   }
 
-  .contact-info { padding-top: 1rem; }
+  .contact-info {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(3rem, 8vw, 8rem);
+    flex-wrap: wrap;
+    text-align: center;
+  }
 
   .contact-block {
     margin-bottom: 2rem;
@@ -908,7 +915,7 @@
   .contact-block.visible { opacity: 1; transform: translateY(0); }
 
   .contact-label {
-    font-size: 0.72rem;
+    font-size: 0.832rem;
     font-weight: 300;
     letter-spacing: 0.32em;
     text-transform: uppercase;
@@ -918,7 +925,7 @@
 
   .contact-val {
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 1.155rem;
     color: #fff;
     line-height: 1.6;
     letter-spacing: 0.04em;
@@ -1227,52 +1234,9 @@
           <p class="contact-val"><a id="email-link">ahsvurology&#64;ah.org</a></p>
         </div>
         <div class="contact-block">
-          <p class="contact-label">Location</p>
-          <p class="contact-val">2750 Sycamore Dr Suite 202<br>Simi Valley, CA 93065</p>
-        </div>
-        <div class="contact-block">
           <p class="contact-label">Response Time</p>
           <p class="contact-val">Within one business day</p>
         </div>
-      </div>
-      <div class="form-wrap">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="appt-first">First Name</label>
-            <input id="appt-first" type="text" class="form-input" placeholder="Jane" autocomplete="given-name">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="appt-last">Last Name</label>
-            <input id="appt-last" type="text" class="form-input" placeholder="Smith" autocomplete="family-name">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="appt-email">Email Address</label>
-          <input id="appt-email" type="email" class="form-input" placeholder="jane@example.com" autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="appt-phone">Phone Number</label>
-          <input id="appt-phone" type="tel" class="form-input" placeholder="(000) 000-0000" autocomplete="tel">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="appt-reason">Reason for Visit</label>
-          <select id="appt-reason" class="form-select form-input">
-            <option value="" disabled selected>Select a reason...</option>
-            <option>Prostate Cancer</option>
-            <option>Kidney Cancer</option>
-            <option>Bladder Cancer</option>
-            <option>Other Urologic Cancer</option>
-            <option>Kidney Stones</option>
-            <option>General Urology</option>
-            <option>Second Opinion</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="appt-message">Message (Optional)</label>
-          <textarea id="appt-message" class="form-textarea form-input" placeholder="If you have a cancer, we will get you in the same week. Guaranteed."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Send Appointment Request</button>
       </div>
     </div>
   </div>
