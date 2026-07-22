@@ -1247,6 +1247,13 @@
 </div><!-- end .h-track -->
 
 <script>
+  // Browser-specific DS logo alignment (Safari vs Chrome render PNG margins differently)
+  const isChrome = navigator.userAgent.indexOf('Chrome') > -1 && navigator.userAgent.indexOf('Chromium') === -1 || navigator.userAgent.indexOf('CriOS') > -1;
+  const isSafari = !isChrome && navigator.userAgent.indexOf('Safari') > -1;
+  const dsLogoEl = document.querySelector('.ds-logo');
+  if (isSafari) dsLogoEl.style.marginLeft = 'clamp(-28px, -1.7vw, -7px)';
+  else if (isChrome) dsLogoEl.style.marginLeft = 'clamp(-22px, -1.4vw, -7px)';
+
   const track        = document.querySelector('.h-track');
   const panels       = Array.from(document.querySelectorAll('.panel'));
   const identityWrap = document.querySelector('.identity-wrap');
