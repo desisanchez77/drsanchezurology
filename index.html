@@ -747,8 +747,22 @@
     width: min(90vw, 900px);
   }
 
+  /* Elfsight ships a light theme (dark text, transparent cards). On this
+     charcoal page that renders as dark-on-dark, so give the widget its own
+     white surface and force the cards light. */
   .reviews-elfsight-wrap {
     width: 100%;
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.25rem;
+  }
+
+  /* The panel sets color:#fff for the dark theme; reset to dark here so any
+     text inheriting from this container stays readable on white. Elfsight's
+     own rules keep their specific colors (stars, links). */
+  .reviews-elfsight-wrap,
+  .reviews-elfsight-wrap .es-embed-root {
+    color: #242424;
   }
 
   .ah-badge {
