@@ -747,22 +747,11 @@
     width: min(90vw, 900px);
   }
 
-  /* Elfsight ships a light theme (dark text, transparent cards). On this
-     charcoal page that renders as dark-on-dark, so give the widget its own
-     white surface and force the cards light. */
+  /* No background here: Elfsight's own review card already supplies the
+     white surface and gray outline. Adding one produced a second, larger
+     white box around it. */
   .reviews-elfsight-wrap {
     width: 100%;
-    background: #fff;
-    border-radius: 14px;
-    padding: 1.25rem;
-  }
-
-  /* The panel sets color:#fff for the dark theme; reset to dark here so any
-     text inheriting from this container stays readable on white. Elfsight's
-     own rules keep their specific colors (stars, links). */
-  .reviews-elfsight-wrap,
-  .reviews-elfsight-wrap .es-embed-root {
-    color: #242424;
   }
 
   .ah-badge {
@@ -1189,11 +1178,8 @@
     .nav-sep { height: 12px; }
     .conditions-grid { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: 1fr; }
-    /* Reclaim width for the embedded widget on narrow screens, and stop any
-       fixed-width content inside it from pushing the page sideways. */
+    /* Stop any fixed-width widget content from pushing the page sideways. */
     .reviews-elfsight-wrap {
-      padding: 0.75rem 0.6rem;
-      border-radius: 10px;
       max-width: 100%;
       overflow-x: hidden;
     }
