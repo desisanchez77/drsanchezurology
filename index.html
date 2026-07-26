@@ -345,6 +345,19 @@
 
   .trust-accent { color: rgba(201,169,110,0.95); }
 
+  .trust-link {
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.22);
+    padding-bottom: 2px;
+    transition: color 0.25s, border-color 0.25s;
+  }
+
+  .trust-link:hover {
+    color: #fff;
+    border-bottom-color: rgba(201,169,110,0.7);
+  }
+
   .trust-star { color: #f5a623; }
 
   .trust-sep {
@@ -1236,7 +1249,7 @@
       </div>
       <p class="hero-guarantee">Cancer patients seen within one week. Guaranteed.</p>
       <div class="hero-trust">
-        <span class="trust-item"><span class="trust-star">&#9733;</span> 4.9 &nbsp;·&nbsp; 341 verified patient ratings</span>
+        <a href="#" class="trust-item trust-link" data-hero-panel="4"><span class="trust-star">&#9733;</span> 4.9 &nbsp;·&nbsp; 341 verified patient ratings</a>
       </div>
       <div class="hero-cta">
         <a href="#" class="hero-btn" data-hero-panel="5">Book Appointment</a>
