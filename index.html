@@ -1187,6 +1187,12 @@
       max-width: 100%;
       box-sizing: border-box;
     }
+    /* At phone width the carousel arrows sit on top of the review card and
+       read as stray half-circles. Hide them here — the pagination dots and
+       swipe still navigate. Matches both "arrow" and "Arrow" class names. */
+    .reviews-elfsight-wrap [class*="rrow"] {
+      display: none !important;
+    }
     /* Badge is a 3-column row on desktop; stack it so the rating count
        doesn't overflow the viewport. */
     .ah-badge {
