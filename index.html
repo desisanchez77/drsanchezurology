@@ -281,7 +281,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.9rem, 2vh, 1.6rem);
+    gap: clamp(1.4rem, 3vh, 2.4rem);
     padding: clamp(0.8rem, 2vh, 1.6rem) 5vw clamp(88px, 12vh, 120px);
   }
 
@@ -301,6 +301,7 @@
     flex-direction: column;
     align-items: center;
     gap: clamp(0.35rem, 0.8vh, 0.7rem);
+    margin-bottom: clamp(0.6rem, 1.6vh, 1.4rem);
   }
 
   .hero-tagline-sub {
@@ -355,10 +356,12 @@
 
   .hero-cta {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: clamp(1rem, 2.5vw, 2rem);
-    flex-wrap: wrap;
+    /* Matches .hero-bottom's gap so the space above and below the
+       Book Appointment box is even. */
+    gap: clamp(1.4rem, 3vh, 2.4rem);
   }
 
   .hero-btn {
