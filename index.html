@@ -1189,6 +1189,18 @@
     .nav-sep { height: 12px; }
     .conditions-grid { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: 1fr; }
+    /* Reclaim width for the embedded widget on narrow screens, and stop any
+       fixed-width content inside it from pushing the page sideways. */
+    .reviews-elfsight-wrap {
+      padding: 0.75rem 0.6rem;
+      border-radius: 10px;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+    .reviews-elfsight-wrap * {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
     /* Badge is a 3-column row on desktop; stack it so the rating count
        doesn't overflow the viewport. */
     .ah-badge {
