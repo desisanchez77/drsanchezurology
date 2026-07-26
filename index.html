@@ -1230,11 +1230,19 @@
     .mywhy-photo-wrap {
       display: block;
       width: 100%;
-      height: 42vh;
+      height: 52vh;
+      height: 52dvh;
       flex-shrink: 0;
     }
+    /* Lighter top fade than the desktop default (12%), and no bottom fade
+       here — the bottom is handled by ::after below. */
+    .mywhy-photo-wrap::before {
+      background: linear-gradient(to bottom, #242424 0%, transparent 6%);
+    }
+    /* Bottom fade: start lower and stop short of solid so more of the
+       video stays visible. */
     .mywhy-photo-wrap::after {
-      background: linear-gradient(to bottom, transparent 40%, #242424 100%);
+      background: linear-gradient(to bottom, transparent 68%, rgba(36,36,36,0.9) 100%);
     }
     .mywhy-text {
       padding: 1.5rem 1.6rem 6rem;
