@@ -749,12 +749,9 @@
 
   /* No background here: Elfsight's own review card already supplies the
      white surface and gray outline. Adding one produced a second, larger
-     white box around it.
-     Side padding gives the carousel arrows room to sit inside the container
-     instead of being clipped at the right edge. */
+     white box around it. */
   .reviews-elfsight-wrap {
     width: 100%;
-    padding: 0 clamp(40px, 4vw, 56px);
   }
 
   .ah-badge {
@@ -1181,10 +1178,8 @@
     .nav-sep { height: 12px; }
     .conditions-grid { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: 1fr; }
-    /* Stop any fixed-width widget content from pushing the page sideways.
-       No side padding needed here: the arrows are hidden at this width. */
+    /* Stop any fixed-width widget content from pushing the page sideways. */
     .reviews-elfsight-wrap {
-      padding: 0;
       max-width: 100%;
       overflow-x: hidden;
     }
