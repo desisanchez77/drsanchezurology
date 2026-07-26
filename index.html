@@ -762,6 +762,16 @@
     width: 100%;
   }
 
+  /* Cap the carousel's internal width. Without this the track runs wider
+     than its container and the right-hand arrow is pushed outside
+     .panel-reviews, which computes to overflow-x: hidden and clips it.
+     This was previously mobile-only, which is why the arrow showed on
+     phones but not desktop. */
+  .reviews-elfsight-wrap * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .ah-badge {
     display: flex;
     align-items: center;
@@ -1187,14 +1197,11 @@
     .nav-sep { height: 12px; }
     .conditions-grid { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: 1fr; }
-    /* Stop any fixed-width widget content from pushing the page sideways. */
+    /* Stop any fixed-width widget content from pushing the page sideways.
+       The inner max-width cap now applies at all widths, above. */
     .reviews-elfsight-wrap {
       max-width: 100%;
       overflow-x: hidden;
-    }
-    .reviews-elfsight-wrap * {
-      max-width: 100%;
-      box-sizing: border-box;
     }
     /* At phone width the carousel arrows sit on top of the review card and
        read as stray half-circles. Hide them here — the pagination dots and
