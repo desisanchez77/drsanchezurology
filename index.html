@@ -641,7 +641,7 @@
   }
 
   /* ── PANEL: CONDITIONS ── */
-  .panel-conditions {
+  .panel-treatments {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -668,15 +668,15 @@
     text-transform: none;
   }
 
-  .conditions-title {
+  .treatments-title {
     text-transform: none;
     letter-spacing: 0.15em;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
   }
 
-  .conditions-title em { font-style: italic; }
+  .treatments-title em { font-style: normal; }
 
-  .conditions-subtitle {
+  .treatments-subtitle {
     font-family: 'Exo 2', sans-serif;
     font-weight: 300;
     font-size: clamp(1.082rem, 1.452vw, 1.32rem);
@@ -692,11 +692,11 @@
     margin: 1.4rem auto 0;
   }
 
-  .panel-conditions .page-header {
+  .panel-treatments .page-header {
     padding-top: 4rem;
   }
 
-  .conditions-grid {
+  .treatments-grid {
     max-width: 1100px;
     margin: 2rem auto 5rem;
     padding: 0;
@@ -707,7 +707,7 @@
     flex-shrink: 0;
   }
 
-  .condition-item {
+  .treatment-item {
     background: #242424;
     padding: 2rem 1.8rem;
     font-weight: 300;
@@ -721,9 +721,9 @@
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
-  .condition-item.visible { opacity: 1; transform: translateY(0); }
+  .treatment-item.visible { opacity: 1; transform: translateY(0); }
 
-  .condition-item::before {
+  .treatment-item::before {
     content: '';
     position: absolute;
     left: 0; top: 0; bottom: 0;
@@ -734,7 +734,7 @@
     transition: transform 0.25s;
   }
 
-  .condition-item:hover::before { transform: scaleY(1); }
+  .treatment-item:hover::before { transform: scaleY(1); }
 
   /* ── PANEL: REVIEWS ── */
   .panel-reviews {
@@ -1158,7 +1158,7 @@
   @media (max-width: 900px) {
     .hero-video-wrap { border-radius: 16px; }
     .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-    .conditions-grid { grid-template-columns: repeat(2, 1fr); }
+    .treatments-grid { grid-template-columns: repeat(2, 1fr); }
     .appt-content { grid-template-columns: 1fr; }
   }
 
@@ -1204,7 +1204,7 @@
     .bottom-nav::-webkit-scrollbar { display: none; }
     .bottom-nav a { font-size: 0.75rem; letter-spacing: 0.02em; padding: 4px 3vw; flex-shrink: 0; white-space: nowrap; }
     .nav-sep { height: 12px; }
-    .conditions-grid { grid-template-columns: repeat(2, 1fr); }
+    .treatments-grid { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: 1fr; }
     /* No overflow-x here: setting it forces overflow-y to compute as auto,
        which turns this into a scroll container that swallows touch scrolling
@@ -1277,7 +1277,7 @@
   @media (prefers-reduced-motion: reduce) {
     .h-track { transition: none; }
     .hero-video-wrap, .mywhy-photo-wrap, .mywhy-text { transition: none; }
-    .cred-item, .condition-item, .review-card, .contact-block, .form-wrap {
+    .cred-item, .treatment-item, .review-card, .contact-block, .form-wrap {
       opacity: 1;
       transform: none;
       transition: none;
@@ -1399,30 +1399,30 @@
     </div>
   </div>
 
-  <!-- Panel 3: Conditions -->
-  <div class="panel panel-conditions">
+  <!-- Panel 3: Treatments -->
+  <div class="panel panel-treatments">
     <div class="page-header">
-      <h2 class="page-title conditions-title">Problems <em>I Treat</em></h2>
-      <p class="conditions-subtitle">Total urologic care for cancer, benign conditions, and everything in between.</p>
+      <h2 class="page-title treatments-title">Problems <em>I Treat</em></h2>
+      <p class="treatments-subtitle">Total urologic care for cancer, benign conditions, and everything in between.</p>
       <div class="page-divider"></div>
     </div>
-    <div class="conditions-grid">
-      <div class="condition-item">Prostate Cancer<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Robotic Prostatectomy</span></div>
-      <div class="condition-item">Prostate Fiducial Marker and Rectal Spacer Placement</div>
-      <div class="condition-item">Kidney Cancer<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Radical and Partial Nephrectomy</span></div>
-      <div class="condition-item">Bladder Cancer</div>
-      <div class="condition-item">Testicular Cancer</div>
-      <div class="condition-item">Adrenal Tumors</div>
-      <div class="condition-item">Upper Tract Urothelial Cancer</div>
-      <div class="condition-item">Penile Cancer</div>
-      <div class="condition-item">Benign Prostatic Hyperplasia (Enlarged Prostate)<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Aquablation</span></div>
-      <div class="condition-item">Kidney Stones<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Laser and ESWL</span></div>
-      <div class="condition-item">Urinary Incontinence &amp; Overactive Bladder<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Bladder Botox and Bulkamid</span></div>
-      <div class="condition-item">Hematuria (Blood in Urine)</div>
-      <div class="condition-item">Urethral &amp; Ureteral Strictures</div>
-      <div class="condition-item">Erectile Dysfunction &amp; Peyronie's Disease</div>
-      <div class="condition-item">Vasectomy</div>
-      <div class="condition-item">Hydrocele</div>
+    <div class="treatments-grid">
+      <div class="treatment-item">Prostate Cancer<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Robotic Prostatectomy</span></div>
+      <div class="treatment-item">Prostate Fiducial Marker and Rectal Spacer Placement</div>
+      <div class="treatment-item">Kidney Cancer<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Radical and Partial Nephrectomy</span></div>
+      <div class="treatment-item">Bladder Cancer</div>
+      <div class="treatment-item">Testicular Cancer</div>
+      <div class="treatment-item">Adrenal Tumors</div>
+      <div class="treatment-item">Upper Tract Urothelial Cancer</div>
+      <div class="treatment-item">Penile Cancer</div>
+      <div class="treatment-item">Benign Prostatic Hyperplasia (Enlarged Prostate)<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Aquablation</span></div>
+      <div class="treatment-item">Kidney Stones<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Laser and ESWL</span></div>
+      <div class="treatment-item">Urinary Incontinence &amp; Overactive Bladder<br><span style="font-size:0.80rem;color:rgba(255,255,255,0.55);">Bladder Botox and Bulkamid</span></div>
+      <div class="treatment-item">Hematuria (Blood in Urine)</div>
+      <div class="treatment-item">Urethral &amp; Ureteral Strictures</div>
+      <div class="treatment-item">Erectile Dysfunction &amp; Peyronie's Disease</div>
+      <div class="treatment-item">Vasectomy</div>
+      <div class="treatment-item">Hydrocele</div>
     </div>
   </div>
 
@@ -1546,7 +1546,7 @@
 
   function revealPanel(index) {
     const panel = panels[index];
-    panel.querySelectorAll('.cred-item, .condition-item, .review-card, .contact-block, .form-wrap')
+    panel.querySelectorAll('.cred-item, .treatment-item, .review-card, .contact-block, .form-wrap')
       .forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 45 + 80));
   }
 
