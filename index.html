@@ -761,16 +761,24 @@
      white box around it. */
   .reviews-elfsight-wrap {
     width: 100%;
+    /* The widget is a horizontal carousel with its own touch handling. On a
+       phone it fills most of the panel, so a vertical drag starting on it
+       gets captured by the carousel and the panel never scrolls. pan-y hands
+       vertical panning to the browser while leaving horizontal swipes to the
+       carousel. */
+    touch-action: pan-y;
   }
 
-  /* Cap the carousel's internal width. Without this the track runs wider
-     than its container and the right-hand arrow is pushed outside
-     .panel-reviews, which computes to overflow-x: hidden and clips it.
-     This was previously mobile-only, which is why the arrow showed on
-     phones but not desktop. */
+  /* max-width caps the carousel's internal width: without it the track runs
+     wider than its container and the right-hand arrow is pushed outside
+     .panel-reviews, which computes to overflow-x: hidden and clips it. This
+     was previously mobile-only, which is why the arrow showed on phones but
+     not desktop. touch-action is inherited down so no descendant of the
+     carousel can capture a vertical drag. */
   .reviews-elfsight-wrap * {
     max-width: 100%;
     box-sizing: border-box;
+    touch-action: pan-y;
   }
 
   .ah-badge {
