@@ -1241,7 +1241,13 @@
     .cred-item:nth-child(3),
     .cred-item:nth-child(4) { border-top: none; }
     .cred-item:nth-child(even) { border-left: none; padding-left: 0; }
-    .panel-mywhy { flex-direction: column; }
+    /* Scroll the whole stacked panel rather than the text alone, so the
+       video scrolls up with the copy instead of staying pinned. */
+    .panel-mywhy {
+      flex-direction: column;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     .mywhy-photo-wrap {
       display: block;
       width: 100%;
@@ -1261,7 +1267,9 @@
     }
     .mywhy-text {
       padding: 1.5rem 1.6rem 6rem;
-      overflow-y: auto;
+      /* The panel scrolls now, not this element — a nested scroller here
+         would pin the video and scroll only the copy. */
+      overflow-y: visible;
     }
   }
 
