@@ -137,34 +137,26 @@
     pointer-events: none;
   }
 
+  .identity-wrap.monogram-only .ds-logo { cursor: pointer; }
+
   /* On non-home panels the monogram doubles as a "back to home" button.
-     content-box (overriding the global border-box reset) means this padding
-     adds a chip around the icon instead of shrinking it, so the logo's
-     rendered size is unaffected. The relative top/left offset (rather than
-     margin) shifts the enlarged box back so the icon sits exactly where it
-     was — margin-left is left untouched since the browser-specific and
-     mobile alignment rules elsewhere set it directly. */
-  .identity-wrap.monogram-only .ds-logo {
-    cursor: pointer;
-    box-sizing: content-box;
-    padding: 9px;
-    position: relative;
-    top: -9px;
-    left: -9px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset;
-    transition: background 0.25s, box-shadow 0.25s;
+     A small three-line mark below it signals that, similar to a menu/home
+     glyph in other apps. <img> is a replaced element, so ::after isn't
+     reliably supported on it — this is a real sibling element instead,
+     positioned by JS (see positionHomeMark) to track the logo's actual
+     rendered position, which already varies by browser and viewport. */
+  .ds-home-mark {
+    position: absolute;
+    height: 2px;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 5px 0 rgba(255,255,255,0.85), 0 10px 0 rgba(255,255,255,0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
   }
 
-  .identity-wrap.monogram-only .ds-logo:hover {
-    background: rgba(255,255,255,0.13);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.22) inset;
-  }
-
-  .identity-wrap.monogram-only .ds-logo:active {
-    background: rgba(255,255,255,0.18);
-  }
+  .identity-wrap.monogram-only .ds-home-mark { opacity: 1; }
+  .identity-wrap.monogram-only .ds-logo:hover ~ .ds-home-mark { opacity: 0.6; }
 
   .ds-logo {
     height: clamp(42px, 5.83vh, 75px);
@@ -1322,6 +1314,7 @@
 <!-- Fixed identity -->
 <div class="identity-wrap">
   <img class="ds-logo" src="DSlogonolinewhite.png" alt="DS">
+  <span class="ds-home-mark" aria-hidden="true"></span>
   <img class="name-img" src="Desireesanchezmd.png" alt="Desiree Sanchez, MD">
   <p class="identity-sub">UROLOGIST &nbsp;·&nbsp; ROBOTIC SURGEON</p>
   <p class="identity-sub">BOARD-CERTIFIED &nbsp;·&nbsp; FELLOWSHIP-TRAINED</p>
@@ -1517,7 +1510,23 @@
   const panels       = Array.from(document.querySelectorAll('.panel'));
   const identityWrap = document.querySelector('.identity-wrap');
   const dsLogo       = document.querySelector('.ds-logo');
+  const dsHomeMark   = document.querySelector('.ds-home-mark');
   const navLinks     = Array.from(document.querySelectorAll('.bottom-nav a[data-panel]'));
+
+  // The three-line "back to home" mark is a real element (::after isn't
+  // reliably supported on <img>, a replaced element), positioned here from
+  // the logo's actual rendered rect so it doesn't need to duplicate the
+  // per-browser/per-viewport margin-left tuning applied to .ds-logo.
+  function positionHomeMark() {
+    if (!dsHomeMark) return;
+    const logoRect = dsLogo.getBoundingClientRect();
+    const wrapRect = identityWrap.getBoundingClientRect();
+    const markWidth = Math.max(20, Math.min(30, logoRect.width * 0.32));
+    const gap = 11;
+    dsHomeMark.style.width = markWidth + 'px';
+    dsHomeMark.style.left  = (logoRect.left - wrapRect.left + logoRect.width / 2 - markWidth / 2) + 'px';
+    dsHomeMark.style.top   = (logoRect.bottom - wrapRect.top + gap) + 'px';
+  }
   const videoWrap    = document.querySelector('.hero-video-wrap');
   const mywhyPhoto   = document.querySelector('.mywhy-photo-wrap');
   const mywhyText    = document.querySelector('.mywhy-text');
@@ -1682,6 +1691,13 @@
     clearTimeout(dsLogoTimer);
     dsLogoTimer = null;
   });
+
+  // Position the home-mark once the logo has its final rendered size
+  // (fonts/images loaded, browser class applied), and again on resize —
+  // its width/margin change with viewport and browser.
+  positionHomeMark();
+  window.addEventListener('load', positionHomeMark);
+  window.addEventListener('resize', positionHomeMark);
 </script>
 </body>
 </html>
