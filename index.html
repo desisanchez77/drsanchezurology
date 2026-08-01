@@ -1287,6 +1287,15 @@
     .cred-item:nth-child(3),
     .cred-item:nth-child(4) { border-top: none; }
     .cred-item:nth-child(even) { border-left: none; padding-left: 0; }
+    /* Same gap fix as .panel-treatments .page-header: 7rem was tuned for
+       desktop, where the identity block is small relative to the page. On
+       mobile the DS monogram + three-line mark extend to ~92px, so push
+       the header down to match. Also center the title and credential text
+       — the block was already horizontally centered (max-width + auto
+       margin) but the text inside stayed left-aligned. */
+    .training-header { padding-top: 9.5rem; text-align: center; }
+    .cred-list { text-align: center; }
+    .cred-item { padding: 2rem 0; }
     /* Scroll the whole stacked panel rather than the text alone, so the
        video scrolls up with the copy instead of staying pinned. */
     .panel-mywhy {
