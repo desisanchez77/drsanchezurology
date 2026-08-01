@@ -144,19 +144,39 @@
      glyph in other apps. <img> is a replaced element, so ::after isn't
      reliably supported on it — this is a real sibling element instead,
      positioned by JS (see positionHomeMark) to track the logo's actual
-     rendered position, which already varies by browser and viewport. */
+     rendered position, which already varies by browser and viewport.
+
+     The element itself is a taller invisible hit box (not just the 2px
+     visual line) so it's actually tappable — box-shadow is decorative
+     only and never contributes to the clickable area. Click/hover
+     handlers are attached in JS, mirroring the ones on .ds-logo. */
   .ds-home-mark {
     position: absolute;
-    height: 2px;
-    background: rgba(255,255,255,0.85);
-    box-shadow: 0 5px 0 rgba(255,255,255,0.85), 0 10px 0 rgba(255,255,255,0.85);
+    height: 16px;
+    cursor: pointer;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s;
   }
 
-  .identity-wrap.monogram-only .ds-home-mark { opacity: 1; }
-  .identity-wrap.monogram-only .ds-logo:hover ~ .ds-home-mark { opacity: 0.6; }
+  .ds-home-mark::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 5px 0 rgba(255,255,255,0.85), 0 10px 0 rgba(255,255,255,0.85);
+  }
+
+  .identity-wrap.monogram-only .ds-home-mark {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .identity-wrap.monogram-only .ds-logo:hover ~ .ds-home-mark,
+  .identity-wrap.monogram-only .ds-home-mark:hover { opacity: 0.6; }
 
   .ds-logo {
     height: clamp(42px, 5.83vh, 75px);
@@ -1522,7 +1542,9 @@
     const logoRect = dsLogo.getBoundingClientRect();
     const wrapRect = identityWrap.getBoundingClientRect();
     const markWidth = Math.max(20, Math.min(30, logoRect.width * 0.32));
-    const gap = 11;
+    // gap is measured to the visual line (::before, inset 3px from the
+    // element's own top), not to the element's top itself.
+    const gap = 11 - 3;
     dsHomeMark.style.width = markWidth + 'px';
     dsHomeMark.style.left  = (logoRect.left - wrapRect.left + logoRect.width / 2 - markWidth / 2) + 'px';
     dsHomeMark.style.top   = (logoRect.bottom - wrapRect.top + gap) + 'px';
@@ -1679,18 +1701,22 @@
   const el = document.getElementById('email-link');
   if (el) el.href = 'mailto:' + 'ahsvurology' + '@' + 'ah.org';
 
-  // DS logo → home (click or hover)
-  dsLogo.addEventListener('click', () => goTo(0));
-
-  let dsLogoTimer = null;
-  dsLogo.addEventListener('mouseenter', () => {
-    if (current === 0) return;
-    dsLogoTimer = setTimeout(() => goTo(0), 300);
-  });
-  dsLogo.addEventListener('mouseleave', () => {
-    clearTimeout(dsLogoTimer);
-    dsLogoTimer = null;
-  });
+  // DS logo (and its three-line mark) → home, on click or hover
+  function wireHomeTrigger(el) {
+    if (!el) return;
+    let timer = null;
+    el.addEventListener('click', () => goTo(0));
+    el.addEventListener('mouseenter', () => {
+      if (current === 0) return;
+      timer = setTimeout(() => goTo(0), 300);
+    });
+    el.addEventListener('mouseleave', () => {
+      clearTimeout(timer);
+      timer = null;
+    });
+  }
+  wireHomeTrigger(dsLogo);
+  wireHomeTrigger(dsHomeMark);
 
   // Position the home-mark once the logo has its final rendered size
   // (fonts/images loaded, browser class applied), and again on resize —
