@@ -1244,6 +1244,13 @@
     .bottom-nav a { font-size: 0.75rem; letter-spacing: 0.02em; padding: 4px 3vw; flex-shrink: 0; white-space: nowrap; }
     .nav-sep { height: 12px; }
     .treatments-grid { grid-template-columns: repeat(2, 1fr); }
+    /* Desktop's 4rem top padding sits the title under the fixed DS
+       monogram + three-line mark, which extends to ~92px on mobile — the
+       two were overlapping. Push the whole header down for clear space. */
+    .panel-treatments .page-header {
+      padding-top: 9.5rem;
+      padding-bottom: 2.5rem;
+    }
     .reviews-grid { grid-template-columns: 1fr; }
     /* No overflow-x here: setting it forces overflow-y to compute as auto,
        which turns this into a scroll container that swallows touch scrolling
