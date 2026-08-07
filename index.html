@@ -1244,13 +1244,6 @@
     .bottom-nav a { font-size: 0.75rem; letter-spacing: 0.02em; padding: 4px 3vw; flex-shrink: 0; white-space: nowrap; }
     .nav-sep { height: 12px; }
     .treatments-grid { grid-template-columns: repeat(2, 1fr); }
-    /* Desktop's 4rem top padding sits the title under the fixed DS
-       monogram + three-line mark, which extends to ~92px on mobile — the
-       two were overlapping. Push the whole header down for clear space. */
-    .panel-treatments .page-header {
-      padding-top: 9.5rem;
-      padding-bottom: 2.5rem;
-    }
     .reviews-grid { grid-template-columns: 1fr; }
     /* No overflow-x here: setting it forces overflow-y to compute as auto,
        which turns this into a scroll container that swallows touch scrolling
@@ -1258,11 +1251,6 @@
        (applied at all widths, above) already prevents sideways overflow. */
     .reviews-elfsight-wrap {
       max-width: 100%;
-    }
-    /* Push the stack clear of the fixed DS monogram, and leave room below
-       the Adventist Health badge so it clears the nav bar. */
-    .panel-reviews {
-      padding: 7.5rem 5vw 8rem;
     }
     /* At phone width the carousel arrows sit on top of the review card and
        read as stray half-circles. Hide them here — the pagination dots and
@@ -1287,13 +1275,10 @@
     .cred-item:nth-child(3),
     .cred-item:nth-child(4) { border-top: none; }
     .cred-item:nth-child(even) { border-left: none; padding-left: 0; }
-    /* Same gap fix as .panel-treatments .page-header: 7rem was tuned for
-       desktop, where the identity block is small relative to the page. On
-       mobile the DS monogram + three-line mark extend to ~92px, so push
-       the header down to match. Also center the title and credential text
-       — the block was already horizontally centered (max-width + auto
-       margin) but the text inside stayed left-aligned. */
-    .training-header { padding-top: 9.5rem; text-align: center; }
+    /* Center the title and credential text — the block was already
+       horizontally centered (max-width + auto margin) but the text
+       inside stayed left-aligned. */
+    .training-header { text-align: center; }
     .cred-list { text-align: center; }
     .cred-item { padding: 2rem 0; }
     /* Scroll the whole stacked panel rather than the text alone, so the
@@ -1325,6 +1310,58 @@
       /* The panel scrolls now, not this element — a nested scroller here
          would pin the video and scroll only the copy. */
       overflow-y: visible;
+    }
+
+    /* ── CONTINUOUS VERTICAL SCROLL ──
+       Mobile navigates by scrolling the page top-to-bottom instead of
+       swiping between full-screen horizontal slides. Desktop keeps the
+       carousel unchanged (nothing here is scoped outside this media
+       query). Placed last in this block so it wins source-order ties
+       against the earlier same-specificity per-panel overflow rules
+       above (.panel-home, .panel-mywhy, .panel-training, etc. — all
+       single-class selectors, same specificity as .panel below). */
+    html, body {
+      height: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .h-track {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: none !important;
+      transition: none !important;
+    }
+    .panel {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      /* Landing offset for goTo()'s scrollIntoView, so a section's
+         heading clears the fixed DS monogram + three-line mark
+         (~92px tall) instead of scrolling to right behind it. */
+      scroll-margin-top: 115px;
+    }
+    .panel-home { scroll-margin-top: 0; }
+    /* Last section in document order — needs enough bottom clearance
+       that its final content isn't left sitting behind the fixed
+       bottom-nav at the true end of the page. */
+    .panel-appointment { padding-bottom: 6rem; }
+    /* In the old carousel, the monogram only ever overlaid one full,
+       deliberately-cleared panel at a time. In continuous scroll it
+       passes over arbitrary content — including section titles — as the
+       page moves. mix-blend-mode: lighten (set above, all viewports)
+       makes a dark backdrop nearly invisible against this dark page, so
+       it's turned off here specifically and replaced with a real opaque
+       pill behind the icon for legibility. positionHomeMark() is
+       recalled on every monogram-only toggle (JS) so the three-line
+       mark stays correctly placed against this now-padded box. */
+    .identity-wrap.monogram-only {
+      mix-blend-mode: normal;
+      background: rgba(36,36,36,0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 10px 16px 24px;
+      margin: -10px 0 0 -16px;
     }
   }
 
@@ -1542,6 +1579,12 @@
   const isSafari = !isChrome && navigator.userAgent.indexOf('Safari') > -1;
   document.documentElement.classList.add(isChrome ? 'ua-chrome' : isSafari ? 'ua-safari' : 'ua-other');
 
+  // Mobile navigates by scrolling the page (see the "CONTINUOUS VERTICAL
+  // SCROLL" CSS block); desktop keeps the horizontal carousel. Checked
+  // once at load, matching how the rest of the layout doesn't re-branch
+  // on live resize between the two modes.
+  const isMobileLayout = window.matchMedia('(max-width: 600px)').matches;
+
   const track        = document.querySelector('.h-track');
   const panels       = Array.from(document.querySelectorAll('.panel'));
   const identityWrap = document.querySelector('.identity-wrap');
@@ -1586,6 +1629,18 @@
 
   function goTo(index) {
     if (index < 0 || index >= TOTAL) return;
+    if (isMobileLayout) {
+      // No slide animation to run — just scroll there. scroll-margin-top
+      // on .panel (CSS) keeps the landing spot clear of the fixed
+      // monogram. current/nav-active/identity state then update
+      // reactively as the resulting scroll fires updateActiveOnScroll,
+      // so they stay correct even if the user scrolls manually afterward
+      // — plus one direct fallback call once the animation should have
+      // settled, in case the browser doesn't fire a trailing scroll event.
+      panels[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(updateActiveOnScroll, 600);
+      return;
+    }
     if (animating || index === current) return;
     animating = true;
     const prev = current;
@@ -1624,12 +1679,43 @@
       .forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 45 + 80));
   }
 
-  // ── SWIPE NAVIGATION ──────────────────────────────────────────────
+  // Mobile only, but declared at top level (not nested in the
+  // `if (isMobileLayout)` setup block below) so goTo()'s mobile branch
+  // can call it directly as a fallback shortly after scrollIntoView, in
+  // case the browser doesn't fire a trailing 'scroll' event once a
+  // smooth-scroll animation fully settles.
+  function updateActiveOnScroll() {
+    if (!isMobileLayout) return;
+    // The panel whose top has scrolled past the fixed-header offset
+    // (and furthest down among those) is the one currently in view.
+    const probe = window.scrollY + 120;
+    let activeIdx = 0;
+    for (let i = 0; i < panels.length; i++) {
+      if (panels[i].offsetTop <= probe) activeIdx = i;
+    }
+    current = activeIdx;
+    navLinks.forEach(link => {
+      link.classList.toggle('active', parseInt(link.dataset.panel) === activeIdx);
+    });
+    const shouldBeMonogramOnly = activeIdx !== 0 || window.scrollY > 24;
+    const wasMonogramOnly = identityWrap.classList.contains('monogram-only');
+    identityWrap.classList.toggle('monogram-only', shouldBeMonogramOnly);
+    // The monogram-only backdrop (CSS) adds padding around .ds-logo,
+    // shifting where the three-line mark needs to sit — but only
+    // reposition on the actual on/off transition, not every scroll
+    // tick, since it costs two getBoundingClientRect() calls.
+    if (shouldBeMonogramOnly !== wasMonogramOnly) positionHomeMark();
+  }
+
+  // ── SWIPE NAVIGATION (desktop only) ─────────────────────────────────
+  // Mobile scrolls the page natively — there's no horizontal carousel to
+  // swipe between, and this handler's own goTo() calls would fight the
+  // scroll-driven state update in the mobile controller below.
   // Direction is locked within the first 10 px of movement.
   // If the first motion is more vertical than horizontal we surrender
   // immediately and never call preventDefault(), so native scroll works
   // normally inside panels like My Why.
-  (function () {
+  if (!isMobileLayout) (function () {
     const LOCK_PX      = 10;   // pixels before direction is decided
     const MIN_DIST     = 50;   // minimum horizontal distance for a swipe
     const MIN_VEL      = 0.3;  // px/ms fast-flick threshold
@@ -1697,12 +1783,39 @@
 
   // Fade name/credentials once the home panel scrolls, so they don't
   // sit on top of the photo (home is scrollable on short screens).
+  // Desktop only: on mobile .panel-home no longer scrolls internally
+  // (the page does), so this listener would just be dead code there —
+  // the mobile controller below handles the same fade via page scroll.
   const homePanel = document.querySelector('.panel-home');
-  if (homePanel) {
+  if (homePanel && !isMobileLayout) {
     homePanel.addEventListener('scroll', () => {
       if (current !== 0) return;
       identityWrap.classList.toggle('monogram-only', homePanel.scrollTop > 24);
     }, { passive: true });
+  }
+
+  // ── MOBILE SCROLL CONTROLLER ────────────────────────────────────────
+  // Replaces updateCarouselUI()/revealPanel() (which goTo() only drives
+  // on desktop) with scroll-position-driven equivalents, so nav-active
+  // highlighting, the monogram/full-identity swap, and the reveal-on-
+  // arrival animations all stay correct during free scrolling — not
+  // just when goTo() is called.
+  if (isMobileLayout) {
+    const revealed = new Set();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const idx = panels.indexOf(entry.target);
+        if (revealed.has(idx)) return;
+        revealed.add(idx);
+        revealPanel(idx);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    panels.forEach(p => observer.observe(p));
+
+    window.addEventListener('scroll', updateActiveOnScroll, { passive: true });
+    updateActiveOnScroll();
   }
 
   // Homepage CTA → Book Appointment panel
