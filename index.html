@@ -1208,7 +1208,17 @@
     .ua-other .ds-logo { margin-left: -18px; }
     .name-img { margin-left: -17px; width: 62vw; height: 38px; object-fit: cover; object-position: center 50%; }
     .identity-wrap.monogram-only .name-img,
-    .identity-wrap.monogram-only .identity-sub { height: 0 !important; margin: 0 !important; overflow: hidden; }
+    .identity-wrap.monogram-only .identity-sub {
+      height: 0 !important;
+      /* Collapsing height alone left these full-width-but-invisible
+         elements still contributing their width to identity-wrap's
+         flex auto-sizing (align-items: flex-start sizes to content,
+         not the container) — that's what stretched the new backdrop
+         into a wide bar instead of hugging just the icon. */
+      width: 0 !important;
+      margin: 0 !important;
+      overflow: hidden;
+    }
     .panel-home {
       padding-top: 185px;
       overflow-y: auto;
