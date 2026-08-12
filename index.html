@@ -131,6 +131,27 @@
 
 .name-img, .identity-sub { transition: opacity 0.35s ease; }
 
+  /* Legibility backdrop behind the mobile monogram (made visible only in
+     the mobile media query below). Positioned absolute and invisible by
+     default here, outside any media query, is deliberate: on desktop
+     this rule still needs to apply so the element never falls back to
+     position: static, which would make it a normal-flow block that
+     shoves the whole flex-column identity block down by its own
+     (invisible) height. See the mobile media query for why it exists
+     and why it's a real sibling element rather than a background on
+     .identity-wrap itself. */
+  .identity-backdrop {
+    position: absolute;
+    z-index: -1;
+    background: #242424;
+    border-radius: 14px;
+    isolation: isolate;
+    mix-blend-mode: normal;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+
   .identity-wrap.monogram-only .name-img,
   .identity-wrap.monogram-only .identity-sub {
     opacity: 0;
@@ -1359,25 +1380,13 @@
     /* In the old carousel, the monogram only ever overlaid one full,
        deliberately-cleared panel at a time. In continuous scroll it
        passes over arbitrary content — including section titles — as the
-       page moves. mix-blend-mode: lighten (set above, all viewports)
-       makes a dark backdrop nearly invisible against this dark page, so
-       it's turned off here specifically and replaced with a real opaque
-       pill behind the icon for legibility. positionHomeMark() is
-       recalled on every monogram-only toggle (JS) so the three-line
-       mark stays correctly placed against this now-padded box. */
-    .identity-wrap.monogram-only {
-      mix-blend-mode: normal;
-      background: rgba(36,36,36,0.92);
-      /* No backdrop-filter: Safari/WebKit has a longstanding bug where
-         backdrop-filter + border-radius on a position:fixed element
-         doesn't clip the blur to the rounded corners, painting a sharp
-         rectangular blur region on top of the correctly-rounded solid
-         background underneath — visible as two overlapping boxes. The
-         solid background alone already gives enough contrast. */
-      border-radius: 16px;
-      padding: 10px 16px 24px;
-      margin: -10px 0 0 -16px;
-    }
+       page moves, so it needs a legible backdrop. .identity-backdrop
+       itself (position: absolute, invisible by default) is defined
+       above, outside this media query, so it never contributes to
+       identity-wrap's flex layout on desktop even before this rule
+       makes it visible — desktop's carousel never needs it, since each
+       panel there is a full, deliberately-cleared screen. */
+    .identity-wrap.monogram-only .identity-backdrop { opacity: 1; }
   }
 
   /* ── REDUCED MOTION ── */
@@ -1401,6 +1410,7 @@
 
 <!-- Fixed identity -->
 <div class="identity-wrap">
+  <div class="identity-backdrop" aria-hidden="true"></div>
   <img class="ds-logo" src="DSlogonolinewhite.png" alt="DS">
   <span class="ds-home-mark" aria-hidden="true"></span>
   <img class="name-img" src="Desireesanchezmd.png" alt="Desiree Sanchez, MD">
@@ -1605,6 +1615,7 @@
   const identityWrap = document.querySelector('.identity-wrap');
   const dsLogo       = document.querySelector('.ds-logo');
   const dsHomeMark   = document.querySelector('.ds-home-mark');
+  const identityBackdrop = document.querySelector('.identity-backdrop');
   const navLinks     = Array.from(document.querySelectorAll('.bottom-nav a[data-panel]'));
 
   // The three-line "back to home" mark is a real element (::after isn't
@@ -1622,6 +1633,26 @@
     dsHomeMark.style.width = markWidth + 'px';
     dsHomeMark.style.left  = (logoRect.left - wrapRect.left + logoRect.width / 2 - markWidth / 2) + 'px';
     dsHomeMark.style.top   = (logoRect.bottom - wrapRect.top + gap) + 'px';
+  }
+
+  // Sizes/positions the mobile-only legibility backdrop (see the CSS
+  // comment on .identity-backdrop) to hug ds-logo and ds-home-mark's
+  // actual rendered rects — tight on top/sides, extended down to cover
+  // the three-line mark.
+  function positionIdentityBackdrop() {
+    if (!identityBackdrop || !dsHomeMark) return;
+    const wrapRect = identityWrap.getBoundingClientRect();
+    const logoRect = dsLogo.getBoundingClientRect();
+    const markRect = dsHomeMark.getBoundingClientRect();
+    const padSide = 6, padTop = 6, padBottom = 10;
+    const left   = Math.min(logoRect.left, markRect.left) - wrapRect.left - padSide;
+    const right  = Math.max(logoRect.right, markRect.right) - wrapRect.left + padSide;
+    const top    = logoRect.top - wrapRect.top - padTop;
+    const bottom = markRect.bottom - wrapRect.top + padBottom;
+    identityBackdrop.style.left   = left + 'px';
+    identityBackdrop.style.top    = top + 'px';
+    identityBackdrop.style.width  = (right - left) + 'px';
+    identityBackdrop.style.height = (bottom - top) + 'px';
   }
   const videoWrap    = document.querySelector('.hero-video-wrap');
   const mywhyPhoto   = document.querySelector('.mywhy-photo-wrap');
@@ -1715,11 +1746,14 @@
     const shouldBeMonogramOnly = activeIdx !== 0 || window.scrollY > 24;
     const wasMonogramOnly = identityWrap.classList.contains('monogram-only');
     identityWrap.classList.toggle('monogram-only', shouldBeMonogramOnly);
-    // The monogram-only backdrop (CSS) adds padding around .ds-logo,
-    // shifting where the three-line mark needs to sit — but only
-    // reposition on the actual on/off transition, not every scroll
-    // tick, since it costs two getBoundingClientRect() calls.
-    if (shouldBeMonogramOnly !== wasMonogramOnly) positionHomeMark();
+    // Reposition on the actual on/off transition, not every scroll tick
+    // — each call costs a few getBoundingClientRect() reads, and
+    // ds-logo's own rendered position doesn't change between scroll
+    // ticks, only (rarely) on load/resize.
+    if (shouldBeMonogramOnly !== wasMonogramOnly) {
+      positionHomeMark();
+      positionIdentityBackdrop();
+    }
   }
 
   // ── SWIPE NAVIGATION (desktop only) ─────────────────────────────────
@@ -1862,12 +1896,14 @@
   wireHomeTrigger(dsLogo);
   wireHomeTrigger(dsHomeMark);
 
-  // Position the home-mark once the logo has its final rendered size
-  // (fonts/images loaded, browser class applied), and again on resize —
-  // its width/margin change with viewport and browser.
+  // Position the home-mark (and its backdrop) once the logo has its
+  // final rendered size (fonts/images loaded, browser class applied),
+  // and again on resize — their width/margin change with viewport and
+  // browser.
   positionHomeMark();
-  window.addEventListener('load', positionHomeMark);
-  window.addEventListener('resize', positionHomeMark);
+  positionIdentityBackdrop();
+  window.addEventListener('load', () => { positionHomeMark(); positionIdentityBackdrop(); });
+  window.addEventListener('resize', () => { positionHomeMark(); positionIdentityBackdrop(); });
 </script>
 </body>
 </html>
