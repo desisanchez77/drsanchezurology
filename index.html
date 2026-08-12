@@ -1368,7 +1368,12 @@
     .identity-wrap.monogram-only {
       mix-blend-mode: normal;
       background: rgba(36,36,36,0.92);
-      backdrop-filter: blur(10px);
+      /* No backdrop-filter: Safari/WebKit has a longstanding bug where
+         backdrop-filter + border-radius on a position:fixed element
+         doesn't clip the blur to the rounded corners, painting a sharp
+         rectangular blur region on top of the correctly-rounded solid
+         background underneath — visible as two overlapping boxes. The
+         solid background alone already gives enough contrast. */
       border-radius: 16px;
       padding: 10px 16px 24px;
       margin: -10px 0 0 -16px;
