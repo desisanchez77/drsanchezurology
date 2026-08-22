@@ -1363,7 +1363,13 @@
     .hero-btn { width: 100%; text-align: center; padding: 0.95rem 1rem; }
     .bottom-nav {
       padding: 12px 0 16px;
-      justify-content: flex-start;
+      /* Now four items (Book Appointment moved to the top bar once
+         scrolled — see .bottom-nav a[data-panel="5"] below), which fit
+         comfortably at every phone width, so center them instead of
+         the old left-aligned/scrollable layout that used to be needed
+         to fit all five. overflow-x stays as a safety fallback on
+         very narrow screens, not the primary layout. */
+      justify-content: center;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
