@@ -782,8 +782,9 @@
   /* Still one step down from --primary (this is the non-focus section),
      but legible and clearly a real heading — patients should notice
      general urology care is offered too, not just cancer/BPH. */
-  .treatments-group-label.secondary {
-    font-weight: 600;
+  .treatments-group-label.secondary,
+  .treatments-group-label--procedures {
+    font-weight: 300;
     font-size: clamp(1rem, 1.7vw, 1.3rem);
     letter-spacing: 0.12em;
     color: rgba(201,169,110,0.85);
@@ -1623,7 +1624,7 @@
       <div class="treatment-item">Benign Prostatic Hyperplasia (Enlarged Prostate)<br><span class="treatment-sub">Aquablation and Robotic Simple Prostatectomy</span></div>
     </div>
 
-    <p class="treatments-group-label">Signature Procedures</p>
+    <p class="treatments-group-label treatments-group-label--procedures">Signature Procedures</p>
     <div class="procedure-badges">
       <span class="procedure-badge">Robotic Prostatectomy</span>
       <span class="procedure-badge">Robotic Partial &amp; Radical Nephrectomy</span>
