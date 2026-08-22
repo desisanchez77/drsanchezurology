@@ -1333,11 +1333,12 @@
       overflow: hidden;
     }
     .panel-home {
-      /* Only needs to clear the static top bar now — the full
-         name/credential stack that used to sit inline above the hero
-         (and needed ~185px of clearance) is retired on mobile in favor
-         of the bar's always-compact monogram. */
-      padding-top: 96px;
+      /* Unscrolled, the home screen still shows the full inline
+         identity block (logo + name + credentials) exactly as before —
+         the static top bar only takes over once monogram-only mode
+         kicks in (see body.mobile-scrolled below), so this needs the
+         same clearance it always did. */
+      padding-top: 185px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -1482,43 +1483,46 @@
     /* Static top bar: same lighter-charcoal tone as the Adventist
        Health review card (rgba(255,255,255,0.06) over the #242424 page
        background, computed to a flat color since this bar needs to
-       fully occlude whatever scrolls beneath it). Holds the DS
-       monogram and the Book Appointment shortcut in a fixed place, so
-       neither one is ever lost behind — or scrolled past with —
-       arbitrary panel content. */
+       fully occlude whatever scrolls beneath it). Hidden by default —
+       the home screen keeps its original, unscrolled look (full inline
+       identity block, no bar). It only switches on once monogram-only
+       mode kicks in (body.mobile-scrolled, toggled in JS by the same
+       "past home / scrolled 24px" check that already drove
+       monogram-only), so the bar appears exactly when the visitor
+       starts scrolling through the sections. */
     .mobile-topbar {
-      display: block;
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 76px;
       background: #313131;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       z-index: 44;
+      display: none;
     }
-    /* The old per-panel legibility backdrop is redundant now that the
-       whole header sits on a solid bar, and the three-line "this is a
-       home button" hint is redundant now that the bar itself reads as
+    body.mobile-scrolled .mobile-topbar { display: block; }
+
+    /* The old per-panel legibility backdrop is redundant once the
+       header sits on a solid bar, and the three-line "this is a home
+       button" hint is redundant once the bar itself reads as
        persistent nav — both retired here, mobile only. */
     .identity-backdrop,
     .ds-home-mark { display: none; }
-    .identity-wrap {
-      /* Vertically centered within the 76px bar itself, not the
-         viewport — position: fixed's containing block is the
-         viewport, so centering against it (top: 50%) would place the
-         logo at screen-center instead of bar-center. */
+
+    /* Once scrolled, re-anchor the identity block to sit centered
+       inside the 76px bar instead of its original inline top-left
+       spot. (position: fixed's containing block is the viewport, so
+       centering against 50% would center on the screen, not the bar —
+       hence the fixed 38px/translateY(-50%) pairing instead.) The
+       monogram-only rule elsewhere already collapses name-img/
+       identity-sub to nothing at this point, exactly as it did before
+       the bar existed. */
+    body.mobile-scrolled .identity-wrap {
       top: 38px;
       transform: translateY(-50%);
       z-index: 50;
     }
-    /* The monogram-only class already hides these via the rule above,
-       but on mobile they should never reappear at all — the full
-       name/credential stack has no room in a slim static bar and
-       already lives in the hero itself. */
-    .name-img, .identity-sub { display: none !important; }
-    .ds-logo { cursor: pointer; }
 
     .topbar-book-btn {
-      display: inline-flex;
       align-items: center;
       justify-content: center;
       position: fixed;
@@ -1537,12 +1541,14 @@
       border-radius: 999px;
       text-decoration: none;
       white-space: nowrap;
+      display: none;
     }
+    body.mobile-scrolled .topbar-book-btn { display: inline-flex; }
 
-    /* Now shown via .topbar-book-btn instead — keeps the bottom nav
-       to four items that fit without needing a horizontal scroll (the
-       fifth, longest label was what forced that scroll and got
-       clipped at the viewport edge). */
+    /* Shown via .topbar-book-btn once scrolled instead — keeps the
+       bottom nav to four items that fit without needing a horizontal
+       scroll (the fifth, longest label was what forced that scroll and
+       got clipped at the viewport edge). */
     .bottom-nav a[data-panel="5"] { display: none; }
   }
 
@@ -1926,6 +1932,11 @@
     const shouldBeMonogramOnly = activeIdx !== 0 || window.scrollY > 24;
     const wasMonogramOnly = identityWrap.classList.contains('monogram-only');
     identityWrap.classList.toggle('monogram-only', shouldBeMonogramOnly);
+    // Drives the static top bar + Book Appointment shortcut (mobile
+    // only, see the .mobile-topbar/.topbar-book-btn rules) — same
+    // trigger as monogram-only, so the bar appears exactly when the
+    // monogram would otherwise start scrolling past page content.
+    document.body.classList.toggle('mobile-scrolled', shouldBeMonogramOnly);
     // Reposition on the actual on/off transition, not every scroll tick
     // — each call costs a few getBoundingClientRect() reads, and
     // ds-logo's own rendered position doesn't change between scroll
