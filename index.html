@@ -2096,23 +2096,45 @@
     document.querySelectorAll('.treatment-item').forEach(el => spotlightObserver.observe(el));
 
     // My Why video: the autoplay/muted/playsinline attributes alone
-    // don't reliably kick in on mobile Safari once the page is scrolled
-    // to this section rather than loaded on it directly — it can settle
-    // on its own paused/poster state instead. Explicitly play() once
-    // it's actually in view (and pause it again once scrolled past, so
-    // it isn't silently running off-screen).
+    // don't reliably kick in on mobile once the page is scrolled to
+    // this section rather than loaded on it directly — it can settle
+    // on its own paused/poster state instead.
+    //
+    // Tapping the "My Why" nav link happened to work while a plain
+    // finger-scroll didn't. The difference: mobile Safari only honors
+    // play() calls that trace back to a real, direct user gesture
+    // (tap/touchend) — an async IntersectionObserver callback firing
+    // partway through a scroll doesn't count as one, even though the
+    // scroll itself was user-initiated, so the browser silently refuses
+    // it. The nav-link tap worked because goTo() calls scrollIntoView()
+    // synchronously inside the click handler itself.
+    //
+    // Fix: capture the page's very first touch (a real gesture) and use
+    // it to "unlock" the video with one play()/pause() pair — WebKit
+    // treats the element as gesture-approved for playback afterward, so
+    // the later IntersectionObserver-triggered play() (fired with no
+    // gesture of its own, purely from scroll position) is then allowed
+    // to actually start it once it scrolls into view.
     const mywhyVideo = document.querySelector('.mywhy-photo');
     if (mywhyVideo) {
+      let mywhyIntersecting = false;
+
       const videoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          mywhyIntersecting = entry.isIntersecting;
+          if (entry.isIntersecting && mywhyVideo.paused) {
             mywhyVideo.play().catch(() => {});
-          } else {
-            mywhyVideo.pause();
           }
         });
       }, { threshold: 0.25 });
       videoObserver.observe(mywhyVideo);
+
+      const unlockMywhyVideo = () => {
+        mywhyVideo.play().then(() => {
+          if (!mywhyIntersecting) mywhyVideo.pause();
+        }).catch(() => {});
+      };
+      window.addEventListener('touchstart', unlockMywhyVideo, { once: true, passive: true });
     }
   }
 
