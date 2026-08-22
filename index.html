@@ -234,6 +234,16 @@
     margin-left: clamp(-30px, -2.5vw, -12px);
   }
 
+  /* ── MOBILE STATIC TOP BAR ──
+     Hidden on desktop by default (no rule needed there beyond this);
+     the mobile media query below turns it on. Kept as real elements
+     here (not nested only inside the media query) so their default
+     off-state is unambiguous at every viewport. */
+  .mobile-topbar,
+  .topbar-book-btn {
+    display: none;
+  }
+
   /* ── BOTTOM NAV ── */
   .bottom-nav {
     position: fixed;
@@ -1323,7 +1333,11 @@
       overflow: hidden;
     }
     .panel-home {
-      padding-top: 185px;
+      /* Only needs to clear the static top bar now — the full
+         name/credential stack that used to sit inline above the hero
+         (and needed ~185px of clearance) is retired on mobile in favor
+         of the bar's always-compact monogram. */
+      padding-top: 96px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -1455,25 +1469,81 @@
       height: auto;
       overflow: visible;
       /* Landing offset for goTo()'s scrollIntoView, so a section's
-         heading clears the fixed DS monogram + three-line mark
-         (~92px tall) instead of scrolling to right behind it. */
-      scroll-margin-top: 115px;
+         heading clears the static top bar instead of scrolling to
+         right behind it. */
+      scroll-margin-top: 96px;
     }
     .panel-home { scroll-margin-top: 0; }
     /* Last section in document order — needs enough bottom clearance
        that its final content isn't left sitting behind the fixed
        bottom-nav at the true end of the page. */
     .panel-appointment { padding-bottom: 6rem; }
-    /* In the old carousel, the monogram only ever overlaid one full,
-       deliberately-cleared panel at a time. In continuous scroll it
-       passes over arbitrary content — including section titles — as the
-       page moves, so it needs a legible backdrop. .identity-backdrop
-       itself (position: absolute, invisible by default) is defined
-       above, outside this media query, so it never contributes to
-       identity-wrap's flex layout on desktop even before this rule
-       makes it visible — desktop's carousel never needs it, since each
-       panel there is a full, deliberately-cleared screen. */
-    .identity-wrap.monogram-only .identity-backdrop { opacity: 1; }
+
+    /* Static top bar: same lighter-charcoal tone as the Adventist
+       Health review card (rgba(255,255,255,0.06) over the #242424 page
+       background, computed to a flat color since this bar needs to
+       fully occlude whatever scrolls beneath it). Holds the DS
+       monogram and the Book Appointment shortcut in a fixed place, so
+       neither one is ever lost behind — or scrolled past with —
+       arbitrary panel content. */
+    .mobile-topbar {
+      display: block;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 76px;
+      background: #313131;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 44;
+    }
+    /* The old per-panel legibility backdrop is redundant now that the
+       whole header sits on a solid bar, and the three-line "this is a
+       home button" hint is redundant now that the bar itself reads as
+       persistent nav — both retired here, mobile only. */
+    .identity-backdrop,
+    .ds-home-mark { display: none; }
+    .identity-wrap {
+      /* Vertically centered within the 76px bar itself, not the
+         viewport — position: fixed's containing block is the
+         viewport, so centering against it (top: 50%) would place the
+         logo at screen-center instead of bar-center. */
+      top: 38px;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    /* The monogram-only class already hides these via the rule above,
+       but on mobile they should never reappear at all — the full
+       name/credential stack has no room in a slim static bar and
+       already lives in the hero itself. */
+    .name-img, .identity-sub { display: none !important; }
+    .ds-logo { cursor: pointer; }
+
+    .topbar-book-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 38px;
+      right: 5vw;
+      transform: translateY(-50%);
+      z-index: 46;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #242424;
+      background: #EDD9A3;
+      padding: 0.65rem 1.05rem;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* Now shown via .topbar-book-btn instead — keeps the bottom nav
+       to four items that fit without needing a horizontal scroll (the
+       fifth, longest label was what forced that scroll and got
+       clipped at the viewport edge). */
+    .bottom-nav a[data-panel="5"] { display: none; }
   }
 
   /* ── REDUCED MOTION ── */
@@ -1494,6 +1564,13 @@
 <body>
 
 <!-- Carousel dots -->
+
+<!-- Static mobile header bar: keeps the DS monogram and a Book
+     Appointment shortcut pinned in place while the page scrolls.
+     Desktop is untouched (hidden by default, shown only in the mobile
+     media query below). -->
+<div class="mobile-topbar" aria-hidden="true"></div>
+<a href="#" class="topbar-book-btn">Book Appointment</a>
 
 <!-- Fixed identity -->
 <div class="identity-wrap">
@@ -1932,6 +2009,16 @@
       goTo(parseInt(this.dataset.panel));
     });
   });
+
+  // Mobile static top bar's Book Appointment shortcut → same panel as
+  // the bottom-nav link it replaces visually on mobile.
+  const topbarBookBtn = document.querySelector('.topbar-book-btn');
+  if (topbarBookBtn) {
+    topbarBookBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      goTo(5);
+    });
+  }
 
   // Fade name/credentials once the home panel scrolls, so they don't
   // sit on top of the photo (home is scrollable on short screens).
