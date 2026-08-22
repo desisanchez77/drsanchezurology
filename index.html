@@ -213,7 +213,8 @@
   .identity-sub {
     font-family: 'Exo 2', sans-serif;
     font-weight: 300;
-    font-size: clamp(0.65rem, 0.975vw, 0.94rem);
+    /* 10% larger than the original clamp(0.65rem, 0.975vw, 0.94rem). */
+    font-size: clamp(0.715rem, 1.0725vw, 1.034rem);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #EDD9A3;
@@ -223,10 +224,6 @@
 
   .identity-sub:first-of-type { margin-top: clamp(10px, 1.5vh, 22px); }
   .identity-sub + .identity-sub { margin-top: clamp(4px, 0.6vh, 8px); }
-
-  /* Mobile shows different, wordier credential text than desktop — see
-     the mobile media query. Hidden here by default (desktop). */
-  .identity-sub--mobile { display: none; }
 
   .name-img {
     width: clamp(200px, 28vw, 440px);
@@ -1268,18 +1265,6 @@
     .ua-chrome .ds-logo,
     .ua-other .ds-logo { margin-left: -18px; }
     .name-img { margin-left: -17px; width: 62vw; height: 38px; object-fit: cover; object-position: center 50%; }
-    /* Swap the two-line desktop credential text ("UROLOGIST · ROBOTIC
-       SURGEON" / "BOARD-CERTIFIED · UROLOGIC CANCER") for wordier mobile
-       phrasing, 10% larger. mobile-1 gets the "first line" margin
-       explicitly — it isn't really :first-of-type once the (hidden)
-       desktop paragraphs are counted, so that structural selector above
-       wouldn't apply to it correctly. */
-    .identity-sub--desktop { display: none; }
-    .identity-sub--mobile {
-      display: block;
-      font-size: 0.715rem;
-    }
-    .identity-sub--mobile-1 { margin-top: clamp(10px, 1.5vh, 22px); }
     .identity-wrap.monogram-only .name-img,
     .identity-wrap.monogram-only .identity-sub {
       height: 0 !important;
@@ -1471,10 +1456,8 @@
   <img class="ds-logo" src="DSlogonolinewhite.png" alt="DS">
   <span class="ds-home-mark" aria-hidden="true"></span>
   <img class="name-img" src="Desireesanchezmd.png" alt="Desiree Sanchez, MD">
-  <p class="identity-sub identity-sub--desktop">UROLOGIST &nbsp;·&nbsp; ROBOTIC SURGEON</p>
-  <p class="identity-sub identity-sub--desktop">BOARD-CERTIFIED &nbsp;·&nbsp; UROLOGIC CANCER</p>
-  <p class="identity-sub identity-sub--mobile identity-sub--mobile-1">Board-Certified Urologist</p>
-  <p class="identity-sub identity-sub--mobile">Fellowship-Trained Robotic Cancer Surgeon</p>
+  <p class="identity-sub">Board-Certified Urologist</p>
+  <p class="identity-sub">Fellowship-Trained Robotic Cancer Surgeon</p>
 </div>
 
 <!-- Fixed bottom nav -->
