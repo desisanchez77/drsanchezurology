@@ -776,9 +776,37 @@
     color: rgba(201,169,110,0.85);
   }
 
-  .treatments-grid + .treatments-group-label { margin-top: 3.5rem; }
+  .treatments-grid + .treatments-group-label,
+  .procedure-badges + .treatments-group-label { margin-top: 3.5rem; }
 
   .treatments-group-label.secondary { color: rgba(255,255,255,0.4); }
+
+  /* Signature procedures: named techniques (Robotic Prostatectomy,
+     Aquablation, etc.) called out on their own, separate from the
+     condition grid — the procedure name is what should be unmissable
+     here, not attached as small subtext under a diagnosis. */
+  .procedure-badges {
+    max-width: 900px;
+    margin: 1.4rem auto 0;
+    padding: 0 6vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .procedure-badge {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.88rem, 1.15vw, 1.05rem);
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: rgba(201,169,110,0.12);
+    border: 1px solid rgba(201,169,110,0.6);
+    border-radius: 999px;
+    padding: 0.6rem 1.3rem;
+    text-align: center;
+  }
 
   .treatments-grid {
     max-width: 1100px;
@@ -1575,6 +1603,14 @@
       <div class="treatment-item">Upper Tract Urothelial Cancer</div>
       <div class="treatment-item">Penile Cancer</div>
       <div class="treatment-item">Benign Prostatic Hyperplasia (Enlarged Prostate)<br><span class="treatment-sub">Aquablation and Robotic Simple Prostatectomy</span></div>
+    </div>
+
+    <p class="treatments-group-label">Signature Procedures</p>
+    <div class="procedure-badges">
+      <span class="procedure-badge">Robotic Prostatectomy</span>
+      <span class="procedure-badge">Robotic Partial &amp; Radical Nephrectomy</span>
+      <span class="procedure-badge">Aquablation</span>
+      <span class="procedure-badge">Robotic Simple Prostatectomy</span>
     </div>
 
     <p class="treatments-group-label secondary">Additional Urologic Care</p>
