@@ -2094,6 +2094,26 @@
       });
     }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
     document.querySelectorAll('.treatment-item').forEach(el => spotlightObserver.observe(el));
+
+    // My Why video: the autoplay/muted/playsinline attributes alone
+    // don't reliably kick in on mobile Safari once the page is scrolled
+    // to this section rather than loaded on it directly — it can settle
+    // on its own paused/poster state instead. Explicitly play() once
+    // it's actually in view (and pause it again once scrolled past, so
+    // it isn't silently running off-screen).
+    const mywhyVideo = document.querySelector('.mywhy-photo');
+    if (mywhyVideo) {
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            mywhyVideo.play().catch(() => {});
+          } else {
+            mywhyVideo.pause();
+          }
+        });
+      }, { threshold: 0.25 });
+      videoObserver.observe(mywhyVideo);
+    }
   }
 
   // Homepage CTA → Book Appointment panel
