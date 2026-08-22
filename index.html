@@ -1331,28 +1331,40 @@
       display: none;
     }
     .panel-home { padding-top: clamp(28px, 4vh, 56px); }
+    /* Same assets/typography as the original corner block (.name-img /
+       .identity-sub below) — just centered here instead of left-aligned,
+       per feedback that the new headline shouldn't introduce a new font
+       or sizing of its own. */
     .hero-identity {
-      display: block;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 0 6vw clamp(0.7rem, 1.4vh, 1.1rem);
     }
-    .hero-name {
-      font-family: 'Exo 2', sans-serif;
-      font-weight: 400;
-      font-size: clamp(1.5rem, 2.8vw, 2.3rem);
-      letter-spacing: 0.03em;
-      color: #fff;
-      margin: 0 0 0.45rem;
+    .hero-name-img {
+      width: clamp(200px, 28vw, 440px);
+      height: clamp(32px, 4.5vh, 68px);
+      object-fit: cover;
+      object-position: center 50%;
+      display: block;
+      /* Same trick as .identity-wrap: the PNG's own dark background
+         isn't actually transparent, so it needs blending against the
+         page background to disappear rather than showing as a box. */
+      mix-blend-mode: lighten;
     }
-    .hero-credentials {
+    .hero-credentials-sub {
       font-family: 'Exo 2', sans-serif;
       font-weight: 300;
-      font-size: clamp(0.72rem, 1.05vw, 0.92rem);
-      letter-spacing: 0.14em;
+      font-size: clamp(0.715rem, 1.0725vw, 1.034rem);
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #EDD9A3;
+      white-space: nowrap;
+      line-height: 1.4;
       margin: 0;
     }
+    .hero-credentials-sub:first-of-type { margin-top: clamp(6px, 1vh, 14px); }
+    .hero-credentials-sub + .hero-credentials-sub { margin-top: clamp(4px, 0.6vh, 8px); }
     .hero-tagline--top { margin-bottom: clamp(1.1rem, 2.2vh, 1.7rem); }
   }
 
@@ -1669,8 +1681,9 @@
          as a real headline instead. Hidden on mobile, where the corner
          still carries the full identity block as before. -->
     <div class="hero-identity">
-      <h1 class="hero-name">Desiree Sanchez, MD</h1>
-      <p class="hero-credentials">Board-Certified Urologist &nbsp;&middot;&nbsp; Fellowship-Trained Robotic Cancer Surgeon</p>
+      <img class="hero-name-img" src="Desireesanchezmd.png" alt="Desiree Sanchez, MD">
+      <p class="hero-credentials-sub">Board-Certified Urologist</p>
+      <p class="hero-credentials-sub">Fellowship-Trained Robotic Cancer Surgeon</p>
     </div>
     <p class="hero-tagline hero-tagline--top"><span>Medicine has advanced. <em>The patient experience should too.</em></span></p>
     <div class="hero-video-wrap">
