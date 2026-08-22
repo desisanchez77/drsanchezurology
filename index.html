@@ -311,6 +311,11 @@
     margin: 0 6vw clamp(0.9rem, 2vh, 1.4rem);
   }
 
+  /* Desktop-only headline (see the desktop media query below for its
+     visible styling) — hidden by default so mobile's layout, where the
+     fixed corner still carries the full name/credentials, is untouched. */
+  .hero-identity { display: none; }
+
   .hero-video-wrap {
     width: 100%;
     height: 50vh;
@@ -1313,19 +1318,42 @@
 
   /* ── RESPONSIVE ── */
 
-  /* Desktop-only breathing room for the hero top, where the fixed
-     identity block (logo + name + credentials) and the "Medicine has
-     advanced..." tagline used to sit at almost the same height with
-     barely any gap, reading as cluttered. Scoped above the mobile
-     breakpoint so mobile's home screen (already tuned separately)
-     stays untouched. */
+  /* Desktop-only hero-top declutter. The fixed corner used to carry the
+     full identity block (logo + name + credentials) at almost the same
+     height as the "Medicine has advanced..." tagline, reading as
+     cluttered. On desktop the corner now shows just the DS monogram —
+     name + credentials move into the hero itself as a real headline
+     (.hero-identity, markup above). Scoped above the mobile breakpoint
+     so mobile (still the full corner block, untouched) is unaffected. */
   @media (min-width: 601px) {
-    .identity-wrap {
-      top: clamp(24px, 3.2vh, 46px);
-      gap: clamp(4px, 0.7vh, 9px);
+    .identity-wrap .name-img,
+    .identity-wrap .identity-sub {
+      display: none;
     }
-    .panel-home { padding-top: clamp(32px, 4.5vh, 64px); }
-    .hero-tagline--top { margin-bottom: clamp(1.3rem, 2.6vh, 2rem); }
+    .panel-home { padding-top: clamp(28px, 4vh, 56px); }
+    .hero-identity {
+      display: block;
+      text-align: center;
+      margin: 0 6vw clamp(0.7rem, 1.4vh, 1.1rem);
+    }
+    .hero-name {
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 400;
+      font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+      letter-spacing: 0.03em;
+      color: #fff;
+      margin: 0 0 0.45rem;
+    }
+    .hero-credentials {
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.72rem, 1.05vw, 0.92rem);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #EDD9A3;
+      margin: 0;
+    }
+    .hero-tagline--top { margin-bottom: clamp(1.1rem, 2.2vh, 1.7rem); }
   }
 
   @media (max-width: 900px) {
@@ -1636,6 +1664,14 @@
 
   <!-- Panel 0: Home -->
   <div class="panel panel-home">
+    <!-- Desktop only (see .hero-identity) — the fixed corner shows just
+         the DS monogram there now, so the name + credentials move here
+         as a real headline instead. Hidden on mobile, where the corner
+         still carries the full identity block as before. -->
+    <div class="hero-identity">
+      <h1 class="hero-name">Desiree Sanchez, MD</h1>
+      <p class="hero-credentials">Board-Certified Urologist &nbsp;&middot;&nbsp; Fellowship-Trained Robotic Cancer Surgeon</p>
+    </div>
     <p class="hero-tagline hero-tagline--top"><span>Medicine has advanced. <em>The patient experience should too.</em></span></p>
     <div class="hero-video-wrap">
       <img class="hero-video" src="Desstandingrobot.jpg" alt="Dr. Desiree Sanchez at robotic surgery console">
