@@ -1378,6 +1378,15 @@
     .bottom-nav a { font-size: 0.75rem; letter-spacing: 0.02em; padding: 4px 3vw; flex-shrink: 0; white-space: nowrap; }
     .nav-sep { height: 12px; }
     .treatments-grid { grid-template-columns: repeat(2, 1fr); }
+    /* There's no hover on mobile, so the accent bar (permanently on
+       for Areas of Focus, hover-only — i.e. never — for Additional
+       Urologic Care) needs a different trigger here. Tie it to the
+       same .visible class each box already gets from the scroll-reveal
+       IntersectionObserver, so the bar animates in as a box scrolls
+       into view — gold for Areas of Focus, white for the rest — instead
+       of the featured grid's bar just sitting on permanently. */
+    .treatments-grid--featured .treatment-item::before { transform: scaleY(0); }
+    .treatment-item.visible::before { transform: scaleY(1); }
     /* Condition names and their procedure sub-labels were the same size
        on every viewport — feedback was that both read too small on
        mobile. */
@@ -1556,6 +1565,9 @@
        scroll (the fifth, longest label was what forced that scroll and
        got clipped at the viewport edge). */
     .bottom-nav a[data-panel="5"] { display: none; }
+    /* Its separator would otherwise be left dangling after Reviews
+       with nothing following it. */
+    .bottom-nav .nav-sep:last-of-type { display: none; }
   }
 
   /* ── REDUCED MOTION ── */
