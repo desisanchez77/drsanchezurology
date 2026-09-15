@@ -271,6 +271,13 @@
     display: none;
   }
 
+  /* ── DESKTOP FIXED CTA ──
+     Book Appointment + phone, pinned top-right at all times — mirrors
+     the DS monogram's fixed top-left placement. Hidden by default so
+     mobile (which keeps its own .topbar-book-btn instead) is
+     unaffected; the desktop media query below turns it on. */
+  .desktop-cta { display: none; }
+
   /* ── BOTTOM NAV ── */
   .bottom-nav {
     position: fixed;
@@ -450,7 +457,8 @@
   .trust-item {
     font-family: 'Exo 2', sans-serif;
     font-weight: 300;
-    font-size: clamp(0.858rem, 1.045vw, 1.045rem);
+    /* ~20% larger than the original clamp(0.858rem, 1.045vw, 1.045rem). */
+    font-size: clamp(1.03rem, 1.25vw, 1.25rem);
     letter-spacing: 0.06em;
     color: rgba(255,255,255,0.72);
     white-space: nowrap;
@@ -520,6 +528,20 @@
   }
 
   .hero-phone:hover { color: rgba(201,169,110,0.95); }
+
+  /* Phone icon shown next to the number in the desktop fixed corner
+     (.desktop-cta) — a thin-line icon to match the site's monogram/
+     home-mark line-art aesthetic rather than a filled emoji glyph. */
+  .desktop-cta .hero-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .phone-icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+  }
 
   .skip-link {
     position: absolute;
@@ -1452,6 +1474,16 @@
       display: none;
     }
     .panel-home { padding-top: clamp(28px, 4vh, 56px); }
+    .desktop-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.7rem;
+      position: fixed;
+      top: clamp(24px, 3.2vh, 46px);
+      right: clamp(18px, 2.5vw, 40px);
+      z-index: 50;
+    }
     /* Same assets/typography as the original corner block (.name-img /
        .identity-sub below) — just centered here instead of left-aligned,
        per feedback that the new headline shouldn't introduce a new font
@@ -1487,23 +1519,11 @@
     .hero-credentials-sub:first-of-type { margin-top: clamp(6px, 1vh, 14px); }
     .hero-credentials-sub + .hero-credentials-sub { margin-top: clamp(4px, 0.6vh, 8px); }
     .hero-tagline--top { margin-bottom: clamp(1.1rem, 2.2vh, 1.7rem); }
-    .hero-cta {
-      flex-direction: row;
-      gap: 1.8rem;
-      flex-wrap: wrap;
-    }
-  }
-
-  /* Laptop-height screens: keep Book Appointment + phone above the fold
-     without changing the look on tall monitors. */
-  @media (min-width: 601px) and (max-height: 940px) {
-    .hero-video-wrap { height: 40vh; height: 40dvh; }
-    .hero-bottom {
-      gap: clamp(0.75rem, 2vh, 1.5rem);
-      padding-top: clamp(0.4rem, 1vh, 0.8rem);
-      padding-bottom: clamp(92px, 12vh, 120px);
-    }
-    .hero-cta { gap: 1.4rem; }
+    /* Book Appointment + phone now live in the fixed top-right corner
+       (.desktop-cta) instead, mirroring the DS monogram's fixed
+       top-left placement — so the in-hero copy is hidden here. Mobile
+       keeps them in the hero flow as before. */
+    .hero-cta { display: none; }
   }
 
   @media (max-width: 900px) {
@@ -1795,6 +1815,20 @@
   <img class="name-img" src="Desireesanchezmd.png" alt="Desiree Sanchez, MD">
   <p class="identity-sub">Board-Certified Urologist</p>
   <p class="identity-sub">Fellowship-Trained Robotic Cancer Surgeon</p>
+</div>
+
+<!-- Desktop-only fixed corner: Book Appointment + phone stay visible
+     at all times, mirroring the DS monogram's fixed top-left placement.
+     Hidden on mobile, which keeps its own static top bar instead (see
+     .topbar-book-btn above). -->
+<div class="desktop-cta">
+  <a href="#appointment" class="hero-btn" data-hero-panel="5">Book Appointment</a>
+  <a href="tel:+18059558070" class="hero-phone">
+    <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+    (805) 955-8070
+  </a>
 </div>
 
 <!-- Fixed bottom nav -->
