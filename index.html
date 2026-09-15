@@ -3,18 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr. Desiree Sanchez</title>
+<title>Dr. Desiree Sanchez | Urologist &amp; Robotic Surgeon in Simi Valley, CA</title>
+<meta name="description" content="Board-certified urologist and fellowship-trained robotic cancer surgeon in Simi Valley, CA. Prostate, kidney, and bladder cancer, enlarged prostate (BPH), and minimally invasive robotic surgery. Cancer patients seen within one week.">
+<link rel="canonical" href="https://drsanchezurology.com/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#242424">
+<meta name="author" content="Desiree Sanchez, MD">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://drsanchezurology.com/">
+<meta property="og:title" content="Dr. Desiree Sanchez | Urologist &amp; Robotic Surgeon in Simi Valley">
+<meta property="og:description" content="Board-certified urologist and fellowship-trained robotic cancer surgeon. Cancer patients seen within one week. Guaranteed.">
+<meta property="og:image" content="https://drsanchezurology.com/Desstandingrobot-hero.jpg">
+<meta property="og:image:alt" content="Dr. Desiree Sanchez at the robotic surgery console">
+<meta property="og:site_name" content="Dr. Desiree Sanchez Urology">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dr. Desiree Sanchez | Urologist &amp; Robotic Surgeon in Simi Valley">
+<meta name="twitter:description" content="Board-certified urologist and fellowship-trained robotic cancer surgeon in Simi Valley, CA. Cancer patients seen within one week.">
+<meta name="twitter:image" content="https://drsanchezurology.com/Desstandingrobot-hero.jpg">
 <link rel="icon" type="image/png" href="DSlogonoline.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": ["Physician", "LocalBusiness"],
+  "@type": ["Physician", "MedicalBusiness", "LocalBusiness"],
   "name": "Desiree Sanchez, MD",
   "description": "Fellowship-trained urologist and robotic urologic oncologist specializing in prostate cancer, kidney cancer, bladder cancer, and minimally invasive robotic surgery in Simi Valley, CA.",
-  "image": "https://drsanchezurology.com/Desireesanchezmd.png",
+  "image": "https://drsanchezurology.com/Desstandingrobot-hero.jpg",
   "url": "https://drsanchezurology.com",
   "telephone": "+18059558070",
-  "email": "drsanchezurology@gmail.com",
+  "email": "ahsvurology@ah.org",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "2750 Sycamore Dr Suite 202",
@@ -23,6 +40,16 @@
     "postalCode": "93065",
     "addressCountry": "US"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 34.2714,
+    "longitude": -118.7806
+  },
+  "hasMap": "https://maps.google.com/?q=2750+Sycamore+Dr+Suite+202+Simi+Valley+CA+93065",
+  "areaServed": [
+    { "@type": "City", "name": "Simi Valley" },
+    { "@type": "AdministrativeArea", "name": "Ventura County" }
+  ],
   "medicalSpecialty": "https://schema.org/Urology",
   "hasCredential": [
     {
@@ -493,6 +520,74 @@
   }
 
   .hero-phone:hover { color: rgba(201,169,110,0.95); }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 8px;
+    z-index: 400;
+    background: #EDD9A3;
+    color: #242424;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .skip-link:focus { left: 8px; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  :focus-visible {
+    outline: 1px solid #EDD9A3;
+    outline-offset: 3px;
+  }
+
+  .hero-location {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 300;
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+  }
+
+  .bottom-nav a[data-panel="5"] { color: #EDD9A3; }
+  .bottom-nav a[data-panel="5"].active { color: #fff; }
+
+  .nav-label-short { display: none; }
+
+  .hero-headline {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero-tagline,
+  .hero-tagline-sub,
+  .hero-guarantee,
+  .hero-tagline--top,
+  .hero-location {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+  .hero-tagline > span { display: block; }
+  .tagline-break { display: none; }
+  .hero-video-wrap, .hero-video { min-width: 0; max-width: 100%; }
 
   /* ── PANEL: MY WHY ── */
   .panel-mywhy {
@@ -1212,12 +1307,11 @@
 
   .contact-info {
     padding-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: clamp(3rem, 8vw, 8rem);
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.2rem 4rem;
     text-align: center;
+    width: min(100%, 680px);
   }
 
   .contact-block {
@@ -1248,6 +1342,33 @@
 
   .contact-val a { color: inherit; text-decoration: none; }
   .contact-val a:hover { color: rgba(255,255,255,0.7); }
+
+  .contact-val-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .contact-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .contact-directions {
+    display: inline-block;
+    margin-top: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.9);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,169,110,0.35);
+    padding-bottom: 2px;
+  }
+  .contact-directions:hover { color: #EDD9A3; border-bottom-color: #EDD9A3; }
 
   .form-wrap {
     opacity: 0;
@@ -1366,6 +1487,23 @@
     .hero-credentials-sub:first-of-type { margin-top: clamp(6px, 1vh, 14px); }
     .hero-credentials-sub + .hero-credentials-sub { margin-top: clamp(4px, 0.6vh, 8px); }
     .hero-tagline--top { margin-bottom: clamp(1.1rem, 2.2vh, 1.7rem); }
+    .hero-cta {
+      flex-direction: row;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  /* Laptop-height screens: keep Book Appointment + phone above the fold
+     without changing the look on tall monitors. */
+  @media (min-width: 601px) and (max-height: 940px) {
+    .hero-video-wrap { height: 40vh; height: 40dvh; }
+    .hero-bottom {
+      gap: clamp(0.75rem, 2vh, 1.5rem);
+      padding-top: clamp(0.4rem, 1vh, 0.8rem);
+      padding-bottom: clamp(92px, 12vh, 120px);
+    }
+    .hero-cta { gap: 1.4rem; }
   }
 
   @media (max-width: 900px) {
@@ -1401,6 +1539,8 @@
          same clearance it always did. */
       padding-top: 185px;
       overflow-y: auto;
+      overflow-x: hidden;
+      min-width: 0;
       -webkit-overflow-scrolling: touch;
     }
     .hero-video-wrap {
@@ -1409,6 +1549,8 @@
       height: 42vh;
       height: 42dvh;
       min-height: 0;
+      min-width: 0;
+      max-width: 100%;
     }
     .hero-video { object-fit: cover; mix-blend-mode: normal; }
     /* Same uniform-gap idea as desktop, scaled down for phone screens. */
@@ -1424,12 +1566,11 @@
     .hero-btn { width: 100%; text-align: center; padding: 0.95rem 1rem; }
     .bottom-nav {
       padding: 12px 0 16px;
-      /* Now four items (Book Appointment moved to the top bar once
+      /* Four items (Book Appointment moved to the top bar once
          scrolled — see .bottom-nav a[data-panel="5"] below), which fit
          comfortably at every phone width, so center them instead of
-         the old left-aligned/scrollable layout that used to be needed
-         to fit all five. overflow-x stays as a safety fallback on
-         very narrow screens, not the primary layout. */
+         a left-aligned/scrollable layout. overflow-x stays as a safety
+         fallback on very narrow screens, not the primary layout. */
       justify-content: center;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -1438,6 +1579,10 @@
     .bottom-nav::-webkit-scrollbar { display: none; }
     .bottom-nav a { font-size: 0.75rem; letter-spacing: 0.02em; padding: 4px 3vw; flex-shrink: 0; white-space: nowrap; }
     .nav-sep { height: 12px; }
+    .bottom-nav a[data-panel="5"] { display: none; }
+    /* Its separator would otherwise be left dangling after Reviews
+       with nothing following it. */
+    .bottom-nav .nav-sep:last-of-type { display: none; }
     .treatments-grid { grid-template-columns: repeat(2, 1fr); }
     /* Condition names and their procedure sub-labels were the same size
        on every viewport — feedback was that both read too small on
@@ -1471,6 +1616,7 @@
     .ah-count { white-space: normal; }
     .ah-cta { margin-left: 0; }
     .form-row { grid-template-columns: 1fr; }
+    .contact-info { grid-template-columns: 1fr; gap: 0.4rem; }
     .cred-list { grid-template-columns: 1fr; }
     .cred-item:nth-child(3),
     .cred-item:nth-child(4) { border-top: none; }
@@ -1596,7 +1742,9 @@
       top: 38px;
       right: 3vw;
       transform: translateY(-50%);
-      z-index: 46;
+      z-index: 80;
+      mix-blend-mode: normal;
+      isolation: isolate;
       font-family: 'Exo 2', sans-serif;
       font-weight: 600;
       font-size: 0.78rem;
@@ -1604,22 +1752,13 @@
       text-transform: uppercase;
       color: #242424;
       background: #EDD9A3;
-      padding: 0.65rem 1.05rem;
+      padding: 0.65rem 1.15rem;
       border-radius: 999px;
       text-decoration: none;
       white-space: nowrap;
       display: none;
     }
     body.mobile-scrolled .topbar-book-btn { display: inline-flex; }
-
-    /* Shown via .topbar-book-btn once scrolled instead — keeps the
-       bottom nav to four items that fit without needing a horizontal
-       scroll (the fifth, longest label was what forced that scroll and
-       got clipped at the viewport edge). */
-    .bottom-nav a[data-panel="5"] { display: none; }
-    /* Its separator would otherwise be left dangling after Reviews
-       with nothing following it. */
-    .bottom-nav .nav-sep:last-of-type { display: none; }
   }
 
   /* ── REDUCED MOTION ── */
@@ -1635,23 +1774,23 @@
     .identity-wrap, .name-img, .identity-sub { transition: none; }
   }
 </style>
-<script src="https://elfsightcdn.com/platform.js" async></script>
 </head>
 <body>
 
-<!-- Carousel dots -->
+<a class="skip-link" href="#home">Skip to content</a>
+<h1 class="sr-only">Desiree Sanchez, MD — Board-Certified Urologist and Fellowship-Trained Robotic Cancer Surgeon in Simi Valley, California</h1>
 
 <!-- Static mobile header bar: keeps the DS monogram and a Book
      Appointment shortcut pinned in place while the page scrolls.
      Desktop is untouched (hidden by default, shown only in the mobile
      media query below). -->
 <div class="mobile-topbar" aria-hidden="true"></div>
-<a href="#" class="topbar-book-btn">Book Appointment</a>
+<a href="#appointment" class="topbar-book-btn">Book Appointment</a>
 
 <!-- Fixed identity -->
 <div class="identity-wrap">
   <div class="identity-backdrop" aria-hidden="true"></div>
-  <img class="ds-logo" src="DSlogonolinewhite.png" alt="DS">
+  <img class="ds-logo" src="DSlogonolinewhite.png" alt="" tabindex="0" role="button" aria-label="Home">
   <span class="ds-home-mark" aria-hidden="true"></span>
   <img class="name-img" src="Desireesanchezmd.png" alt="Desiree Sanchez, MD">
   <p class="identity-sub">Board-Certified Urologist</p>
@@ -1659,23 +1798,23 @@
 </div>
 
 <!-- Fixed bottom nav -->
-<nav class="bottom-nav">
-  <a href="#" data-panel="1">My Why</a>
-  <span class="nav-sep"></span>
-  <a href="#" data-panel="2">Training</a>
-  <span class="nav-sep"></span>
-  <a href="#" data-panel="3">Treatments</a>
-  <span class="nav-sep"></span>
-  <a href="#" data-panel="4">Reviews</a>
-  <span class="nav-sep"></span>
-  <a href="#" data-panel="5">Book Appointment</a>
+<nav class="bottom-nav" aria-label="Primary">
+  <a href="#my-why" data-panel="1"><span class="nav-label-full">My Why</span><span class="nav-label-short">Why</span></a>
+  <span class="nav-sep" aria-hidden="true"></span>
+  <a href="#training" data-panel="2"><span class="nav-label-full">Training</span><span class="nav-label-short">Train</span></a>
+  <span class="nav-sep" aria-hidden="true"></span>
+  <a href="#treatments" data-panel="3"><span class="nav-label-full">Treatments</span><span class="nav-label-short">Treat</span></a>
+  <span class="nav-sep" aria-hidden="true"></span>
+  <a href="#reviews" data-panel="4">Reviews</a>
+  <span class="nav-sep" aria-hidden="true"></span>
+  <a href="#appointment" data-panel="5"><span class="nav-label-full">Book Appointment</span><span class="nav-label-short">Book</span></a>
 </nav>
 
 <!-- Horizontal track -->
 <div class="h-track">
 
   <!-- Panel 0: Home -->
-  <div class="panel panel-home">
+  <div class="panel panel-home" id="home">
     <!-- Desktop only (see .hero-identity) — the fixed corner shows just
          the DS monogram there now, so the name + credentials move here
          as a real headline instead. Hidden on mobile, where the corner
@@ -1685,32 +1824,32 @@
       <p class="hero-credentials-sub">Board-Certified Urologist</p>
       <p class="hero-credentials-sub">Fellowship-Trained Robotic Cancer Surgeon</p>
     </div>
-    <p class="hero-tagline hero-tagline--top"><span>Medicine has advanced. <em>The patient experience should too.</em></span></p>
+    <p class="hero-tagline hero-tagline--top"><span>Medicine has advanced.<span class="tagline-break"><br></span> <em>The patient experience should too.</em></span></p>
     <div class="hero-video-wrap">
-      <img class="hero-video" src="Desstandingrobot.jpg" alt="Dr. Desiree Sanchez at robotic surgery console">
+      <img class="hero-video" src="Desstandingrobot-hero.jpg" width="1800" height="1200" fetchpriority="high" decoding="async" alt="Dr. Desiree Sanchez at the robotic surgery console">
     </div>
     <div class="hero-bottom">
       <div class="hero-headline">
-        <p class="hero-tagline-sub">Minimally Invasive &amp; Advanced Robotic Surgery</p>
-        <p class="hero-tagline-sub">Specializing in Urologic Cancer &amp; Enlarged Prostate (BPH)</p>
+        <p class="hero-tagline-sub">Minimally Invasive &amp; Advanced<span class="tagline-break"><br></span> Robotic Surgery</p>
+        <p class="hero-tagline-sub">Specializing in Urologic Cancer &amp;<span class="tagline-break"><br></span> Enlarged Prostate (BPH)</p>
       </div>
-      <p class="hero-guarantee">Cancer patients seen within one week. Guaranteed.</p>
+      <p class="hero-location">Simi Valley, California</p>
+      <p class="hero-guarantee">Cancer patients seen within one week.<span class="tagline-break"><br></span> Guaranteed.</p>
       <div class="hero-trust">
-        <a href="#" class="trust-item trust-link" data-hero-panel="4"><span class="trust-star">&#9733;</span> 4.9 &nbsp;·&nbsp; 400+ verified patient ratings</a>
+        <a href="#reviews" class="trust-item trust-link" data-hero-panel="4"><span class="trust-star">&#9733;</span> 4.9 &nbsp;·&nbsp; 400+ verified patient ratings</a>
       </div>
       <div class="hero-cta">
-        <a href="#" class="hero-btn" data-hero-panel="5">Book Appointment</a>
+        <a href="#appointment" class="hero-btn" data-hero-panel="5">Book Appointment</a>
         <a href="tel:+18059558070" class="hero-phone">(805) 955-8070</a>
       </div>
     </div>
   </div>
 
   <!-- Panel 1: My Why -->
-  <div class="panel panel-mywhy">
+  <div class="panel panel-mywhy" id="my-why">
     <div class="mywhy-photo-wrap">
-      <video class="mywhy-photo" autoplay muted loop playsinline preload="auto">
+      <video class="mywhy-photo" autoplay muted loop playsinline preload="metadata">
         <source src="DesonRobot.mp4" type="video/mp4">
-        <source src="DesonRobot.mov" type="video/quicktime">
       </video>
     </div>
     <div class="mywhy-text">
@@ -1729,7 +1868,7 @@
   </div>
 
   <!-- Panel 2: Training -->
-  <div class="panel panel-training">
+  <div class="panel panel-training" id="training">
     <div class="training-header">
       <h2 class="training-title">Trained at the <em>nation's top programs</em></h2>
     </div>
@@ -1768,7 +1907,7 @@
   </div>
 
   <!-- Panel 3: Treatments -->
-  <div class="panel panel-treatments">
+  <div class="panel panel-treatments" id="treatments">
     <div class="page-header">
       <h2 class="page-title treatments-title">Problems <em>Treated</em></h2>
       <p class="treatments-subtitle">Total urologic care for cancer, benign conditions, and everything in between.</p>
@@ -1811,7 +1950,7 @@
   </div>
 
   <!-- Panel 4: Reviews -->
-  <div class="panel panel-reviews">
+  <div class="panel panel-reviews" id="reviews">
     <div class="reviews-stack">
       <!-- Elfsight Google Reviews | Untitled Google Reviews 3 -->
       <div class="reviews-elfsight-wrap">
@@ -1836,7 +1975,7 @@
   </div>
 
   <!-- Panel 5: Book Appointment -->
-  <div class="panel panel-appointment">
+  <div class="panel panel-appointment" id="appointment">
     <div class="page-header">
       <h2 class="page-title appt-title">Book Appointment</h2>
       <div class="page-divider"></div>
@@ -1844,6 +1983,15 @@
     </div>
     <div class="appt-content">
       <div class="contact-info">
+        <div class="contact-block">
+          <p class="contact-label">Office</p>
+          <p class="contact-val contact-val-stack">
+            <span>Adventist Health Simi Valley</span>
+            <span class="contact-sub">2750 Sycamore Dr, Suite 202</span>
+            <span class="contact-sub">Simi Valley, CA 93065</span>
+            <a class="contact-directions" href="https://maps.google.com/?q=2750+Sycamore+Dr+Suite+202+Simi+Valley+CA+93065" target="_blank" rel="noopener">Get Directions</a>
+          </p>
+        </div>
         <div class="contact-block">
           <p class="contact-label">Phone</p>
           <p class="contact-val"><a href="tel:+18059558070">(805) 955-8070</a></p>
@@ -1925,22 +2073,59 @@
   const mywhyText    = document.querySelector('.mywhy-text');
   const TOTAL = panels.length;
   const DUR   = 720;
+  const PANEL_SLUGS = ['home', 'my-why', 'training', 'treatments', 'reviews', 'appointment'];
   let current   = 0;
   let animating = false;
+  let applyingHash = false;
+
+  function panelFromHash() {
+    const h = (location.hash || '').replace(/^#/, '').toLowerCase();
+    if (!h || h === 'home') return 0;
+    if (h === 'book' || h === 'contact') return 5;
+    const i = PANEL_SLUGS.indexOf(h);
+    return i >= 0 ? i : 0;
+  }
+
+  function setHash(index) {
+    applyingHash = true;
+    if (index === 0) {
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    } else {
+      const next = '#' + PANEL_SLUGS[index];
+      if (location.hash !== next) history.replaceState(null, '', next);
+    }
+    applyingHash = false;
+  }
+
+  function loadElfsight() {
+    if (document.getElementById('elfsight-platform')) return;
+    const s = document.createElement('script');
+    s.id = 'elfsight-platform';
+    s.src = 'https://elfsightcdn.com/platform.js';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+
+  function setNavCurrent(index) {
+    navLinks.forEach(link => {
+      const on = parseInt(link.dataset.panel) === index;
+      link.classList.toggle('active', on);
+      if (on) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  }
 
   function updateCarouselUI(index) {
-    // Nav active
-    navLinks.forEach(link => {
-      link.classList.toggle('active', parseInt(link.dataset.panel) === index);
-    });
-    // Identity
+    setNavCurrent(index);
     const homeEl = document.querySelector('.panel-home');
     const homeScrolled = homeEl && homeEl.scrollTop > 24;
     identityWrap.classList.toggle('monogram-only', index !== 0 || homeScrolled);
   }
 
-  function goTo(index) {
+  function goTo(index, instant) {
     if (index < 0 || index >= TOTAL) return;
+    setHash(index);
+    if (index === 4) loadElfsight();
     if (isMobileLayout) {
       // No slide animation to run — just scroll there. scroll-margin-top
       // on .panel (CSS) keeps the landing spot clear of the fixed
@@ -1949,14 +2134,22 @@
       // so they stay correct even if the user scrolls manually afterward
       // — plus one direct fallback call once the animation should have
       // settled, in case the browser doesn't fire a trailing scroll event.
-      panels[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(updateActiveOnScroll, 600);
+      // Instant is used for the initial hash so a shared #appointment
+      // link doesn't animate through every section first.
+      panels[index].scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
+      current = index;
+      updateActiveOnScroll();
+      revealPanel(index);
       return;
     }
-    if (animating || index === current) return;
-    animating = true;
+    if (!instant && (animating || index === current)) return;
     const prev = current;
     current = index;
+    if (instant) {
+      track.style.transition = 'none';
+    } else {
+      animating = true;
+    }
 
     // Slide track
     track.style.transform = `translateX(calc(${-index} * 100vw))`;
@@ -1978,6 +2171,13 @@
 
     updateCarouselUI(index);
     revealPanel(index);
+
+    if (instant) {
+      void track.offsetWidth;
+      track.style.transition = '';
+      if (index !== 0 && videoWrap) videoWrap.style.transform = '';
+      return;
+    }
 
     setTimeout(() => {
       animating = false;
@@ -2006,9 +2206,9 @@
       if (panels[i].offsetTop <= probe) activeIdx = i;
     }
     current = activeIdx;
-    navLinks.forEach(link => {
-      link.classList.toggle('active', parseInt(link.dataset.panel) === activeIdx);
-    });
+    setNavCurrent(activeIdx);
+    setHash(activeIdx);
+    if (activeIdx === 4) loadElfsight();
     const shouldBeMonogramOnly = activeIdx !== 0 || window.scrollY > 24;
     const wasMonogramOnly = identityWrap.classList.contains('monogram-only');
     identityWrap.classList.toggle('monogram-only', shouldBeMonogramOnly);
@@ -2216,22 +2416,52 @@
   const el = document.getElementById('email-link');
   if (el) el.href = 'mailto:' + 'ahsvurology' + '@' + 'ah.org';
 
-  // DS logo (and its three-line mark) → home, on click or hover
+  // DS logo (and its three-line mark) → home on click. Hover-to-home was
+  // removed: a 300ms hover on the monogram would yank people off the
+  // page they were reading.
   function wireHomeTrigger(el) {
     if (!el) return;
-    let timer = null;
     el.addEventListener('click', () => goTo(0));
-    el.addEventListener('mouseenter', () => {
-      if (current === 0) return;
-      timer = setTimeout(() => goTo(0), 300);
-    });
-    el.addEventListener('mouseleave', () => {
-      clearTimeout(timer);
-      timer = null;
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        goTo(0);
+      }
     });
   }
   wireHomeTrigger(dsLogo);
   wireHomeTrigger(dsHomeMark);
+
+  window.addEventListener('hashchange', () => {
+    if (applyingHash) return;
+    const i = panelFromHash();
+    if (i !== current) goTo(i);
+  });
+
+  function goToHash(instant) {
+    const i = panelFromHash();
+    if (i !== 0) goTo(i, instant);
+  }
+  goToHash(true);
+  window.addEventListener('load', () => goToHash(true));
+
+  document.addEventListener('keydown', (e) => {
+    if (isMobileLayout) return;
+    const tag = (e.target && e.target.tagName) || '';
+    if (/INPUT|TEXTAREA|SELECT/.test(tag)) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(Math.min(current + 1, TOTAL - 1)); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(Math.max(current - 1, 0)); }
+    else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    else if (e.key === 'End') { e.preventDefault(); goTo(TOTAL - 1); }
+  });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const reducedVideo = document.querySelector('.mywhy-photo');
+    if (reducedVideo) {
+      reducedVideo.removeAttribute('autoplay');
+      reducedVideo.pause();
+    }
+  }
 
   // Position the home-mark (and its backdrop) once the logo has its
   // final rendered size (fonts/images loaded, browser class applied),
