@@ -1479,11 +1479,11 @@
        vertical scrolling — the fixed Book Appointment/phone corner and
        bottom-nav made the old, more generous spacing (originally sized
        to also clear an in-flow CTA button) unnecessary. */
-    .hero-video-wrap { height: 40vh; height: 40dvh; }
+    .hero-video-wrap { height: 46vh; height: 46dvh; }
     .desktop-cta {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
       gap: 0.7rem;
       position: fixed;
       top: clamp(24px, 3.2vh, 46px);
@@ -1532,8 +1532,15 @@
     }
     .hero-headline { gap: clamp(0.4rem, 0.9vh, 0.75rem); }
     .hero-bottom {
-      gap: clamp(1rem, 2.2vh, 1.6rem);
-      padding: clamp(0.3rem, 0.8vh, 0.6rem) 5vw clamp(16px, 3vh, 28px);
+      /* Text sits lower in the available space — closer to the bottom
+         nav — instead of centering (which left equal empty space above
+         and below it, wasted room the photo could use instead). */
+      justify-content: flex-end;
+      gap: clamp(0.9rem, 2vh, 1.4rem);
+      /* Bottom padding has to clear the fixed bottom-nav bar (it isn't
+         part of this flex column's own layout, so nothing here
+         accounts for its height automatically). */
+      padding: clamp(0.3rem, 0.8vh, 0.6rem) 5vw clamp(60px, 9vh, 95px);
     }
     /* Book Appointment + phone now live in the fixed top-right corner
        (.desktop-cta) instead, mirroring the DS monogram's fixed
