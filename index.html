@@ -1479,7 +1479,7 @@
        vertical scrolling — the fixed Book Appointment/phone corner and
        bottom-nav made the old, more generous spacing (originally sized
        to also clear an in-flow CTA button) unnecessary. */
-    .hero-video-wrap { height: 46vh; height: 46dvh; }
+    .hero-video-wrap { height: 48vh; height: 48dvh; }
     .desktop-cta {
       display: flex;
       flex-direction: column;
@@ -1498,7 +1498,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0 6vw clamp(0.4rem, 0.8vh, 0.7rem);
+      margin: 0 6vw clamp(0.6rem, 1.2vh, 1rem);
     }
     .hero-name-img {
       width: clamp(180px, 24vw, 380px);
@@ -1522,25 +1522,25 @@
       line-height: 1.3;
       margin: 0;
     }
-    .hero-credentials-sub:first-of-type { margin-top: clamp(4px, 0.7vh, 10px); }
-    .hero-credentials-sub + .hero-credentials-sub { margin-top: clamp(2px, 0.4vh, 6px); }
-    .hero-tagline--top { margin-bottom: clamp(0.6rem, 1.2vh, 1rem); }
+    .hero-credentials-sub:first-of-type { margin-top: clamp(6px, 1vh, 14px); }
+    .hero-credentials-sub + .hero-credentials-sub { margin-top: clamp(4px, 0.6vh, 8px); }
+    .hero-tagline--top { margin-bottom: clamp(0.8rem, 1.6vh, 1.2rem); }
     .hero-tagline,
     .hero-tagline-sub,
     .hero-guarantee {
       font-size: clamp(0.95rem, 1.35vw, 1.5rem);
     }
-    .hero-headline { gap: clamp(0.4rem, 0.9vh, 0.75rem); }
+    .hero-headline { gap: clamp(0.3rem, 0.6vh, 0.5rem); }
     .hero-bottom {
       /* Text sits lower in the available space — closer to the bottom
          nav — instead of centering (which left equal empty space above
          and below it, wasted room the photo could use instead). */
       justify-content: flex-end;
-      gap: clamp(0.9rem, 2vh, 1.4rem);
+      gap: clamp(0.7rem, 1.6vh, 1.1rem);
       /* Bottom padding has to clear the fixed bottom-nav bar (it isn't
          part of this flex column's own layout, so nothing here
          accounts for its height automatically). */
-      padding: clamp(0.3rem, 0.8vh, 0.6rem) 5vw clamp(60px, 9vh, 95px);
+      padding: clamp(0.2rem, 0.5vh, 0.4rem) 5vw clamp(60px, 9vh, 95px);
     }
     /* Book Appointment + phone now live in the fixed top-right corner
        (.desktop-cta) instead, mirroring the DS monogram's fixed
