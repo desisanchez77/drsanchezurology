@@ -1019,6 +1019,25 @@
 
   .treatment-sub { font-size: 0.80rem; color: rgba(255,255,255,0.55); }
 
+  /* Desktop-only: the Treatments page (condition boxes, procedure
+     badges, and section labels) read too small at typical viewing
+     distance on a large monitor. Sized up for easier reading; mobile
+     already has its own larger .treatment-item/.treatment-sub values
+     below and is untouched. */
+  @media (min-width: 601px) {
+    .treatments-subtitle { font-size: clamp(1.25rem, 1.6vw, 1.5rem); }
+    .treatments-group-label.secondary,
+    .treatments-group-label--procedures {
+      font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+    }
+    .treatments-group-label--primary {
+      font-size: clamp(1.3rem, 2.3vw, 1.7rem);
+    }
+    .procedure-badge { font-size: clamp(1.02rem, 1.3vw, 1.2rem); }
+    .treatment-item { font-size: 1.2rem; line-height: 1.5; }
+    .treatment-sub { font-size: 1rem; }
+  }
+
   /* ── PANEL: REVIEWS ── */
   .panel-reviews {
     overflow-y: auto;
