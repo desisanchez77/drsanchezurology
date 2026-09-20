@@ -1031,7 +1031,12 @@
       font-size: clamp(1.15rem, 1.9vw, 1.45rem);
     }
     .treatments-group-label--primary {
-      font-size: clamp(1.3rem, 2.3vw, 1.7rem);
+      /* Long line ("Areas of Focus — Cancer & Enlarged Prostate
+         (BPH)") — sized and tracked to always fit on one line at
+         desktop widths instead of wrapping "(BPH)" onto its own line. */
+      font-size: clamp(0.95rem, 2.3vw, 1.7rem);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
     }
     .procedure-badge { font-size: clamp(1.02rem, 1.3vw, 1.2rem); }
     .treatment-item { font-size: 1.2rem; line-height: 1.5; }
