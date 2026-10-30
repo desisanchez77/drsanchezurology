@@ -31,7 +31,6 @@
   "image": "https://drsanchezurology.com/Desstandingrobot-hero.jpg",
   "url": "https://drsanchezurology.com",
   "telephone": "+18059558070",
-  "email": "ahsvurology@ah.org",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "2750 Sycamore Dr Suite 202",
@@ -2497,10 +2496,6 @@
       goTo(parseInt(this.dataset.heroPanel));
     });
   });
-
-  // Build mailto at runtime to deter scrapers
-  const el = document.getElementById('email-link');
-  if (el) el.href = 'mailto:' + 'ahsvurology' + '@' + 'ah.org';
 
   // DS logo (and its three-line mark) → home on click. Hover-to-home was
   // removed: a 300ms hover on the monogram would yank people off the
