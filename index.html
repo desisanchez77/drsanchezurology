@@ -1354,6 +1354,35 @@
     flex-shrink: 0;
   }
 
+  /* Primary action on the booking page: opens Adventist Health's online
+     scheduling form (MyChart) in a new tab. Same gold pill as the mobile
+     top-bar button so it reads as the main call to action. */
+  .appt-online-btn {
+    display: inline-block;
+    margin: 0.6rem 0 1.6rem;
+    padding: 1rem 2.4rem;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #242424;
+    background: #EDD9A3;
+    border-radius: 999px;
+    text-align: center;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .appt-online-btn:hover { background: #f5e6b8; transform: translateY(-1px); }
+  @media (max-width: 600px) {
+    .appt-online-btn {
+      padding: 0.95rem 1.4rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+  }
+
   .contact-info {
     padding-top: 1rem;
     display: grid;
@@ -2071,6 +2100,7 @@
       <p class="cancer-access-note">Cancer patients are seen within one week. Guaranteed.</p>
     </div>
     <div class="appt-content">
+      <a class="appt-online-btn" href="https://mychart.adventisthealth.org/MyChart/app/providers/schedule?providerId=WP-244et5d6bpJthMyf3rfIf4Cw-3D-3D-24DNX4e20OguXHpniTe1jGQER-2F6BNSFUFBPEtrjR7MW5k-3D&amp;departmentId=WP-24nWFnLLJHp2Q0xFRm-2BWlEag-3D-3D-240yoJQ7Uw8C4c4gQF5W0hT3n3Xk5bJuqYnx8w1h5EOJ8-3D&amp;mode=0&amp;ref=8331" target="_blank" rel="noopener noreferrer">Request Appointment Online</a>
       <div class="contact-info">
         <div class="contact-block">
           <p class="contact-label">Office</p>
